@@ -6,12 +6,17 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 12:01:55 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/09 12:02:29 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/11 15:47:38 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
+#include "asm.h"
+
+t_env *g_env = NULL;
+
 int main(int argc, char **argv)
 {
+	ft_exit_asm(NULL);
 	return (0);
 }
