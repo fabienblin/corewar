@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   corewar.h                                        .::    .:/ .      .::   */
+/*   exit.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/09 12:02:53 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/11 12:02:00 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2018/10/11 11:57:11 by fablin       #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/11 13:59:40 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-	#define COREWAR_H
-	
-	#include "libft.h"
-#endif
+#include "corewar.h"
+
+void	ft_exit_corewar(char *msg)
+{
+	if (!msg)
+	{
+		return ;
+	}
+	//free corewar
+	ft_exit(msg);
+}
