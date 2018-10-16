@@ -6,14 +6,13 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/15 17:31:01 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/15 21:49:28 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/16 15:10:13 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 var http = require('http');
 var fs = require('fs');
-var events = require('events');
 
 // Chargement du fichier index.html affiché au client
 var server = http.createServer(function(req, res) {
