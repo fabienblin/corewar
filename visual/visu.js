@@ -1,5 +1,19 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   visu.js                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/10/15 17:31:01 by fablin       #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/15 21:49:28 by fablin      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 var http = require('http');
 var fs = require('fs');
+var events = require('events');
 
 // Chargement du fichier index.html affiché au client
 var server = http.createServer(function(req, res) {
@@ -9,14 +23,11 @@ var server = http.createServer(function(req, res) {
     });
 });
 
-// Chargement de socket.io
 var io = require('socket.io').listen(server);
 
-// Quand un client se connecte, on le note dans la console
-io.sockets.on('connection', function (socket) {
-    console.log('Un client est connecté !');
-	socket.on("HelloWorld", function (payload) {
-		console.log("Event received with payload: ", payload);
+io.sockets.on('connection', function (socket) {	
+	process.stdin.on('data', function (data){
+		socket.emit("turn", data.toString());
 	});
 });
 
