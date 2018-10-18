@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/10/08 18:51:13 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/10/11 19:07:00 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/10/17 16:10:17 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -54,7 +54,7 @@ re : fclean all
 
 install :
 	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
-	brew install npm
+	brew install node
 	brew install soket.io
 
 test :
