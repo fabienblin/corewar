@@ -14,10 +14,11 @@
 #ifndef ASM_H
 # define ASM_H
 # include "libft.h"
-	
+# include <sys/types.h> 
+
 typedef struct	s_env
 {
-	
+
 }				t_env;
 
 void	ft_exit_asm(char *msg);
