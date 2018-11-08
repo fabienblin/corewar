@@ -48,3 +48,20 @@ int			ft_printf(const char *format, ...)
 	ft_del_format_lst(f);
 	return (octet);
 }
+
+int			ft_printfd(int fd, const char *format, ...)
+{
+	va_list		ap;
+	t_format	*f;
+	int			octet;
+	int			fd;
+
+	fd = 1;
+	f = ft_parse((char *)format);
+	va_start(ap, format);
+	ft_tostring(f, ap);
+	va_end(ap);
+	octet = ft_puttostring_fd(f, fd);
+	ft_del_format_lst(f);
+	return (octet);
+}

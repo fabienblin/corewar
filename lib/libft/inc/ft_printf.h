@@ -46,6 +46,9 @@ typedef struct	s_format
 	int					err;
 }				t_format;
 
+int				ft_printf(const char *format, ...);
+int				ft_printfd(int fd, const char *format, ...);
+
 void			ft_type_uox_tostring(t_format *f, va_list ap);
 void			ft_type_di_tostring(t_format *f, va_list ap);
 void			ft_type_p_tostring(t_format *f, va_list ap);
@@ -54,7 +57,6 @@ int				ft_type_s_tostring(t_format *f, va_list ap);
 
 t_format		*ft_new_format(char *substr);
 t_format		*ft_parse(char *format);
-int				ft_printf(const char *format, ...);
 char			*ft_uintmax_itoa_type(uintmax_t n, char t);
 char			*ft_intmax_itoa_type(intmax_t n, char t);
 char			*ft_ptoa(void *p);

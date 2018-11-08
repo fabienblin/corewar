@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/28 17:35:42 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/17 11:33:11 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/08/31 19:48:43 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -125,7 +125,7 @@ typedef struct	s_ntree
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void			ft_lstadd(t_list **alst, t_list *add);
+void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 /*
@@ -133,7 +133,7 @@ t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 */
 void			ft_exit(char *err_message);
 void			*ft_realloc(void **mem, size_t size);
-void			ft_lstpush(t_list **alst, t_list *add);
+void			ft_lstpush(t_list **alst, t_list *new);
 t_list			*ft_lstdup(t_list *lst);
 void			ft_swapptr(void **a, void **b);
 int				get_next_line(int fd, char **line);
