@@ -23,6 +23,11 @@
 
 # define INF (0x7FFFFFFF)
 
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
+
 /*
 **FIRST PART
 */

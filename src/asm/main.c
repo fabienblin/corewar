@@ -13,7 +13,7 @@
 
 #include "asm.h"
 
-t_env	*g_env = NULL;
+t_env	g_env;
 t_op	g_op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
@@ -41,19 +41,12 @@ t_op	g_op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-void intit(void)
-{
-	g_env.op_tab = g_op_tab;
-	g_env.ast = NULL; // potentiellement un t_ntree (voir libft)
-}
-
 int main(int argc, char **argv)
 {
 	int	fd;
 
 	if (argc != 2)
 		ft_printf("%s", USAGE);
-	fd = open(argv[1])
 	init();
 	// verif lexicale du fichier
 	lexer(fd);

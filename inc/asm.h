@@ -22,6 +22,8 @@ typedef struct	s_env
 {
 	t_op	*op_tab;
 	t_ntree	*ast;
+	char 	*name;
+	char	*comment;
 }				t_env;
 
 void	init(void);
