@@ -14,13 +14,19 @@
 #ifndef ASM_H
 # define ASM_H
 # include "libft.h"
-# include <sys/types.h> 
+# include "op.h"
+# include <sys/types.h>
+# define USAGE "USAGE :\n./asm file.cor"
 
 typedef struct	s_env
 {
-
+	t_op	*op_tab;
+	t_ntree	*ast;
 }				t_env;
 
+void	init(void);
+void	lexer(int fd)
+void	parse(void);
 void	ft_exit_asm(char *msg);
 
 #endif

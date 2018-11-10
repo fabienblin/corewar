@@ -14,8 +14,10 @@ zjmp %:live
 # 0x01,0x00,0x00,0x00,0x01
 # 0x09,0xff,0xfb
 */
-
-void		parse(int fd)
+// 1 - lexical check
+// 2 - tokenization
+// " - syntax analyse
+void	lexer(int fd)
 {
 	int		gnl;
 	char	*line;
@@ -24,6 +26,11 @@ void		parse(int fd)
 	line = NULL;
 	while((gnl = get_next_line(fd, &line)) > 0)
 	{
+		// chaque ligne/instruction est composée d'un label, d'un opcode et des paramètres
+		// attention aux commentaires
+		// label = LABEL_CHARS
+		// opcode = g_env.op_tab[x][0]
+		// params = registre(r1..rx) ou direct(DIRECT_CHAR %) ou indirect()
 
 	}
 	ft_strdel(&line);
@@ -33,4 +40,7 @@ void		parse(int fd)
 		ft_exit_asm(strerror(errno));
 		close(fd);
 	}
+
+	//repositionnement de la tête de lecture au debut du fichier
+	lseek(fd, 0, SEEK_SET);
 }
