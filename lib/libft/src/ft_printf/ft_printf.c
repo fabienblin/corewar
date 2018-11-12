@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/28 12:20:14 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/05/17 13:45:41 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/12 11:15:36 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,9 +54,7 @@ int			ft_printfd(int fd, const char *format, ...)
 	va_list		ap;
 	t_format	*f;
 	int			octet;
-	int			fd;
 
-	fd = 1;
 	f = ft_parse((char *)format);
 	va_start(ap, format);
 	ft_tostring(f, ap);
