@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/10/08 18:51:13 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/11/06 18:19:39 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/11/12 15:02:45 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -25,7 +25,7 @@ ASM_OBJ_DIR =	./asm_obj/
 
 COR_CFILES =	main.c exit.c
 
-ASM_CFILES =	main.c exit.c
+ASM_CFILES =	main.c exit.c init.c generator.c lexer.c parser.c op.c
 
 COR_SOURCES =	$(addprefix $(COR_SRC_DIR), $(COR_CFILES))
 
@@ -71,11 +71,16 @@ clean : obj
 
 fclean : obj
 	@make fclean -C ./lib/libft/
-	@rm -rf $(COREWAR) $(ASM)
+	@rm -f $(COREWAR) $(ASM)
 	@rm -rf $(COR_OBJ_DIR)
 	@rm -rf $(ASM_OBJ_DIR)
 
-re : fclean all
+re :
+	@make re -C ./lib/libft/
+	@rm -f $(COREWAR) $(ASM)
+	@rm -rf $(COR_OBJ_DIR)
+	@rm -rf $(ASM_OBJ_DIR)
+	@make
 
 install :
 	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh

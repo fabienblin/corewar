@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2017/11/28 17:35:55 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/10/03 18:53:33 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/11/12 15:26:57 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -61,7 +61,7 @@ OBJECTS =	$(addprefix $(OBJ_DIR), $(OFILES))
 
 FLAGS =		-Wall -Wextra -Werror
 
-all : $(NAME)
+all : obj $(NAME)
 
 $(NAME) : obj $(OBJECTS)
 	ar rc $(NAME) $(OBJECTS)
@@ -81,8 +81,10 @@ clean : obj
 
 fclean : clean
 	@rm -rf $(NAME)
-	@rm -rf $(OBJ_DIR)
 
-re : fclean all
+re :
+	@rm -rf $(OBJ_DIR)
+	@rm -rf $(NAME)
+	@make
 
 .PHONY: all clean fclean re obj
