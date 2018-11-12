@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 12:01:55 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/11 17:03:30 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/12 12:38:08 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,8 @@ t_env *g_env = NULL;
 
 int main(int argc, char **argv)
 {
+	(void)argc;
+	(void)argv;
 	int run = 1;
 	while (run)
 	{

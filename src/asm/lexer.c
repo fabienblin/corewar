@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   lexer.c                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/11/12 13:15:54 by fablin       #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/12 13:16:04 by fablin      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 /* exemple de compilation :
@@ -20,14 +33,12 @@ void	lexer(int fd)
 	int		gnl;
 	char	*line;
 	int		i;
-	char	*label:
+	char	*label;
 	char	**split;
 	char	*opcode;
 	char	*params;
 	int		line_n;
 
-
-	gnl = NULL;
 	line = NULL;
 	line_n = 0;
 	while((gnl = get_next_line(fd, &line)) > 0)
@@ -63,7 +74,7 @@ void	lexer(int fd)
 		i = 0;
 		while (i < REG_NUMBER)
 		{
-			if (ft_strstr(opcode, g_env.op_tab[i][0]))
+			if (ft_strstr(opcode, g_env.op_tab[i].op))
 				break;
 			i++;
 		}

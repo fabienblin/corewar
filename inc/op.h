@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:33:27 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/17 14:23:34 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/12 13:02:11 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,13 +66,13 @@ typedef struct					s_header
 
 typedef struct					s_op
 {
-	char	*a;
-	int		b;
-	int		c;
-	int		d;
-	int		e;
-	char	*f;
-	int		g;
-	int		h;
+	char	*op;
+	int		nb_arg;
+	int		args[3];
+	int		bin;
+	int		cycles;
+	char	*desc;
+	int		octet_param;
+	int		dir_size;
 }								t_op;
 #endif
