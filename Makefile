@@ -6,49 +6,74 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/10/08 18:51:13 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/10/11 19:07:00 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/11/06 18:19:39 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
 
-SRC_DIR =	./src/corewar/
+COREWAR =	corewar
 
-OBJ_DIR =	./obj/
+ASM		=	asm
 
-INC_DIR =	./inc/
+COR_SRC_DIR =	./src/corewar/
 
-NAME =		corewar
+ASM_SRC_DIR =	./src/asm/
 
-CFILES =	main.c exit.c
+COR_OBJ_DIR =	./cor_obj/
 
-SOURCES =	$(addprefix $(SRC_DIR), $(CFILES))
+ASM_OBJ_DIR =	./asm_obj/
 
-OFILES =	$(CFILES:.c=.o) $(FT_PRINTF:.c=.o)
+COR_CFILES =	main.c exit.c
 
-OBJECTS =	$(addprefix $(OBJ_DIR), $(OFILES))
+ASM_CFILES =	main.c exit.c
+
+COR_SOURCES =	$(addprefix $(COR_SRC_DIR), $(COR_CFILES))
+
+ASM_SOURCES =	$(addprefix $(ASM_SRC_DIR), $(ASM_CFILES))
+
+COR_OFILES =	$(COR_CFILES:.c=.o)
+
+ASM_OFILES =	$(ASM_CFILES:.c=.o)
+
+COR_OBJECTS =	$(addprefix $(COR_OBJ_DIR), $(COR_OFILES))
+
+ASM_OBJECTS =	$(addprefix $(ASM_OBJ_DIR), $(ASM_OFILES))
 
 FLAGS =		-Wall -Wextra -Werror
 
-all : $(NAME)
+INC_DIR =	./inc/
 
-$(NAME) : obj $(OBJECTS)
-	@make -C ./lib/libft
-	gcc $(FLAGS) $(OBJECTS) -L ./lib/libft/ -lft -o $(NAME)
+all : libft obj $(COREWAR) $(ASM)
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c
+$(COREWAR) : $(COR_OBJECTS)
+	gcc $(FLAGS) $(COR_OBJECTS) -L ./lib/libft/ -lft -o $(COREWAR)
+
+$(ASM) : $(ASM_OBJECTS)
+	gcc $(FLAGS) $(ASM_OBJECTS) -L ./lib/libft/ -lft -o $(ASM)
+
+$(COR_OBJ_DIR)%.o : $(COR_SRC_DIR)%.c
 	gcc $(FLAGS) -c $< -o $@ -I $(INC_DIR) -I ./lib/libft/inc/
 
+$(ASM_OBJ_DIR)%.o : $(ASM_SRC_DIR)%.c
+	gcc $(FLAGS) -c $< -o $@ -I $(INC_DIR) -I ./lib/libft/inc/
+
+libft :
+	@make -C ./lib/libft
+
 obj :
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(COR_OBJ_DIR)
+	@mkdir -p $(ASM_OBJ_DIR)
 
 clean : obj
 	@make clean -C ./lib/libft/
-	@rm -rf $(OBJ_DIR)
+	@rm -rf $(COR_OBJ_DIR)
+	@rm -rf $(ASM_OBJ_DIR)
 
 fclean : obj
 	@make fclean -C ./lib/libft/
-	@rm -rf $(NAME)
-	@rm -rf $(OBJ_DIR)
+	@rm -rf $(COREWAR) $(ASM)
+	@rm -rf $(COR_OBJ_DIR)
+	@rm -rf $(ASM_OBJ_DIR)
 
 re : fclean all
 
@@ -61,4 +86,4 @@ test :
 	@make -C ./lib/libft
 	gcc $(SOURCES) -L ./lib/libft/ -lft -o test_corewar -I $(INC_DIR) -I ./lib/libft/inc/
 
-.PHONY: all clean fclean re obj
+.PHONY: all clean fclean re libft corewar asm obj
