@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/10/08 18:51:13 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/11/12 15:02:45 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/11/13 17:14:37 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -90,5 +90,13 @@ install :
 test :
 	@make -C ./lib/libft
 	gcc $(SOURCES) -L ./lib/libft/ -lft -o test_corewar -I $(INC_DIR) -I ./lib/libft/inc/
+	
+debug_asm : libft
+	gcc -ggdb $(ASM_SOURCES) ./lib/libft/libft.a -I ./lib/libft/inc -I ./inc -o asm_debug
+	lldb ./asm_debug test.s
+
+debug_cor : libft
+	gcc -ggdb $(COR_SOURCES) ./lib/libft/libft.a -I ./lib/libft/inc -I ./inc -o corewar_debug
+	#lldb ./corewar_debug ???
 
 .PHONY: all clean fclean re libft corewar asm obj
