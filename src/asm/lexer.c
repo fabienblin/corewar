@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:15:54 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/12 13:16:04 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/13 17:09:26 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,18 @@ zjmp %:live
 # 0x09,0xff,0xfb
 */
 
+int		count_split(char **split)
+{
+	int count = 0;
+	while (split && *split)
+	{
+		count++;
+		split++;
+	}
+	return (count);
+}
+
+
 void	lexer(int fd)
 {
 	int		gnl;
@@ -38,9 +50,11 @@ void	lexer(int fd)
 	char	*opcode;
 	char	*params;
 	int		line_n;
+	t_op	*op = NULL;
+
 
 	line = NULL;
-	line_n = 0;
+	line_n = 1;
 	while((gnl = get_next_line(fd, &line)) > 0)
 	{
 		// chaque ligne/instruction est composée d'un label, d'un opcode et des paramètres
@@ -51,7 +65,7 @@ void	lexer(int fd)
 
 		// recup des elements de la ligne
 		if ((split = ft_strsplit(ft_strtrim(line), ' ')) == NULL)
-			ft_exit_asm("Empty line");
+			ft_exit_asm("Empty line\n");
 
 		if (split[0] && split[1] && split[2])
 		{
@@ -66,7 +80,7 @@ void	lexer(int fd)
 		}
 		else
 		{
-			ft_printfd(STDERR, "Invalid line %d: %s",line_n, line);
+			ft_printfd(STDERR, "Invalid syntax on line %d: %s\n",line_n, line);
 			ft_exit_asm(NULL);
 		}
 
@@ -74,21 +88,44 @@ void	lexer(int fd)
 		i = 0;
 		while (i < REG_NUMBER)
 		{
+			ft_printf("comparing %s and %s\n", g_env.op_tab[i].op, opcode);
 			if (ft_strstr(opcode, g_env.op_tab[i].op))
-				break;
+			{
+				op = &g_env.op_tab[i];
+				break; // op est trouvé
+			}
 			i++;
 		}
-		if (i == REG_NUMBER) // si la boucle ne trouve pas d'opcode correct
+		if (i == REG_NUMBER) // si la boucle ne trouve pas l'opcode
 		{
-			ft_printfd(STDERR, "Invalid label on line %d: %s",line_n, line);
+			ft_printfd(STDERR, "Invalid label on line %d: %s\n",line_n, line);
 			ft_exit_asm(NULL);
 		}
-
-		//
 		line_n++;
 	}
 	ft_strdel(&line);
 
+	//maintenant que op est defini, on peut verifier le nombre d'args pour cet op
+	split = ft_strsplit(ft_strtrim(params), ',');
+	int nb_arg = count_split(split);
+	if (op->nb_arg != nb_arg)
+	{
+		if (op->nb_arg > nb_arg)
+			ft_printfd(STDERR, "Not enough arguments for %s on line %d: %s\n",op->op, line_n, line);
+		else
+			ft_printfd(STDERR, "Too many arguments for %s on line %d: %s\n",op->op, line_n, line);
+		ft_exit_asm(NULL);
+	}
+	
+	// on a le bon nombre d'args, donc on verifie les types (T_REG, T_DIR, T_IND, T_LAB)
+	i = 0;
+	while (i < op->nb_arg)
+	{
+		if (1)
+		{;}
+		i++;
+	}
+	
 	if (gnl == -1 || errno)
 	{
 		ft_exit_asm(strerror(errno));

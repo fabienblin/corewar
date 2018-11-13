@@ -6,14 +6,14 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 15:00:06 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/12 15:02:30 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/13 17:12:12 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static t_op	g_op_tab[17] =
+t_op	g_op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -40,7 +40,7 @@ static t_op	g_op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-t_op		*get_op_tab(void)
+t_op	*get_op_tab(void)
 {
 	return (g_op_tab);
 }

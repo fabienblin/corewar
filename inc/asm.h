@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/11 12:01:14 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/12 15:03:37 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/12 15:51:53 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "op.h"
 # include <sys/types.h>
-# define USAGE "USAGE :\n./asm file.cor"
+# define USAGE "USAGE :\n./asm file.s"
 # include <errno.h>
 
 typedef struct	s_env
