@@ -1,1 +1,1 @@
-live: live %1
+live: live bla
