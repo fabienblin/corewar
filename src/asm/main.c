@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 12:01:55 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 17:12:56 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 16:50:20 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,8 @@ int main(int argc, char **argv)
 	lexer(fd);
 	// création de l'AST (Abstract Syntax Tree)
 	//parse(fd);
-
+	// .cor
+	//generate();
 	close(fd);
 	ft_exit_asm(NULL);
 	return (0);

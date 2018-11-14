@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:15:54 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 19:07:12 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 17:45:52 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ int		count_split(char **split)
 	return (count);
 }
 
-// verif du formatage des labels ":LABEL_CHARS"
+// verif du formatage des labels ":LABEL_CHARS" ou "LABEL_CHARS:"
 int		is_label_str(char *str)
 {
 	if (str[0]++ != LABEL_CHAR)
@@ -58,13 +58,13 @@ void	lexer(int fd)
 	int		gnl;
 	char	*line;
 	int		i;
-	char	*label;
-	char	**split;
-	char	*opcode;
-	char	*params;
+	char	*label = NULL;
+	char	**split = NULL;
+	char	*opcode = NULL;
+	char	*params = NULL;
 	int		line_n;
 	t_op	*op = NULL;
-	char	*trim;
+	char	*trim = NULL;
 
 
 	line = NULL;
@@ -75,7 +75,7 @@ void	lexer(int fd)
 		// attention aux commentaires
 		// label = LABEL_CHARS
 		// opcode = g_env.op_tab[x][0]
-		// params = registre(r1..rx) ou direct(DIRECT_CHAR %) ou indirect()
+		// params = registre(r1..rx) ou direct(DIRECT_CHAR %) ou indirect() ou label
 
 		// recup des elements de la ligne
 		trim = ft_strtrim(line);
@@ -119,7 +119,6 @@ void	lexer(int fd)
 			ft_printfd(STDERR, "Invalid label on line %d: %s\n",line_n, line);
 			ft_exit_asm(NULL);
 		}
-		line_n++;
 
 		//maintenant que op est defini, on peut verifier le nombre d'args pour cet op
 		trim = ft_strtrim(params);
@@ -175,7 +174,11 @@ void	lexer(int fd)
 			}
 			i++;
 		}
-		// quoi d'autre?
+		// verif des declarations de labels
+		
+		
+		
+		line_n++;
 	}
 	ft_strdel(&line);
 	
