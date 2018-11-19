@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/10/08 18:51:13 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/11/13 17:14:37 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/11/19 16:52:25 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -25,7 +25,7 @@ ASM_OBJ_DIR =	./asm_obj/
 
 COR_CFILES =	main.c exit.c
 
-ASM_CFILES =	main.c exit.c init.c generator.c lexer.c parser.c op.c
+ASM_CFILES =	main.c exit.c init.c generator.c lexer.c parser.c op.c freesplit.c
 
 COR_SOURCES =	$(addprefix $(COR_SRC_DIR), $(COR_CFILES))
 

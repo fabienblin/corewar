@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:33:27 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/12 13:02:11 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 19:42:10 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,7 @@
 # define LABEL_CHAR				(':')
 # define DIRECT_CHAR			('%')
 # define SEPARATOR_CHAR			(',')
+# define REGISTER_CHAR			('r')
 
 # define LABEL_CHARS			("abcdefghijklmnopqrstuvwxyz_0123456789")
 

@@ -1,39 +1,20 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   asm.h                                            .::    .:/ .      .::   */
+/*   ft_iswhitespace.c                                .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/11 12:01:14 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 16:44:03 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/28 17:35:30 by fablin       #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/19 15:51:12 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef ASM_H
-# define ASM_H
-# include "libft.h"
-# include "op.h"
-# include <sys/types.h>
-# define USAGE "USAGE :\n./asm file.s"
-# include <errno.h>
+#include "libft.h"
 
-typedef struct	s_env
+int	ft_iswhitespace(char c)
 {
-	t_op	*op_tab;
-	t_ntree	*ast;
-	char 	*name;
-	char	*comment;
-}				t_env;
-
-t_env	g_env;
-
-void	init(void);
-void	lexer(int fd);
-void	parse(int fd);
-void	ft_exit_asm(char *msg);
-t_op	*get_op_tab(void);
-void	freesplit(char ***split);
-
-#endif
+	return (c == ' ' || c == '\f' || c == '\n' ||
+			c == '\r' || c == '\t' || c == '\v');
+}

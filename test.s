@@ -1,1 +1,1 @@
-live: ld bla, r1
+lab: and r1, r1,	r1
