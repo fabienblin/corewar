@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:15:54 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 22:14:34 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/20 16:07:22 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,45 +28,60 @@ zjmp %:live
 # 0x09,0xff,0xfb
 */
 
-int		count_split(char **split)
+int		check_arg_type(char **args, t_op *op)
 {
-	int count = 0;
-	while (split && *split)
+	int i;
+	int type;
+	int nb_arg = count_split(args);
+
+	i = 0;
+	while (i < nb_arg)
 	{
-		count++;
-		split++;
+		trim_whitespace(&args[i]);
+		type = 0;
+		type += is_t_reg(args[i], op->args[i]);
+		type += is_t_dir(args[i], op->args[i]);
+		type += is_t_ind(args[i], op->args[i]);
+		type += is_t_lab(args[i], op->args[i]);
+		if (type != 1)
+			return (type);
+		i++;
 	}
-	return (count);
+	return (1);
 }
 
-
-void	trim_whitespace(char **str)
+char **get_args(char *line)
 {
-	char	*start;
-	char	*end;
-	char	*trim;
-	
-	if (!str || !*str)
-		return ;
-	start = *str;
-	while(*start && ft_iswhitespace(*start))
-		start++;
-	end = &start[ft_strlen(start)];
-	while(end > start && ft_iswhitespace(*end))
-		end--;
-	if (start != *str || end != &str[0][ft_strlen(*str) - 1])
+	char **tmp_split;
+	char **args;
+	char *arg1;
+	char *arg2;
+	char *arg3;
+
+	if ((args = ft_strsplit(line, SEPARATOR_CHAR)) == NULL)
 	{
-		trim = ft_strsub(*str, start - *str, end - start);
-		ft_strdel(str);
-		*str = trim;
+		ft_exit_asm("Invalid args\n");
 	}
+	tmp_split = ft_strsplit_whitespace(args[0]);
+	arg1 = ft_strdup(tmp_split[count_split(tmp_split) - 1]);
+	arg2 = ft_strdup(args[1]);
+	arg3 = ft_strdup(args[2]);
+	freesplit(&tmp_split);
+	freesplit(&args);
+	if ((args = (char **)malloc(4 * sizeof(char *))))
+	{
+		ft_bzero((int *)args, 4);
+		args[0] = arg1;
+		args[1] = arg2;
+		args[2] = arg3;
+	}
+	return (args);
 }
 
 void	lexer(int fd)
 {
 	int		gnl;
 	char	*line;
-	int		i;
 	char	*label = NULL;
 	char	**split = NULL;
 	char	*opcode = NULL;
@@ -78,13 +93,6 @@ void	lexer(int fd)
 	line_n = 1;
 	while((gnl = get_next_line(fd, &line)) > 0)
 	{
-		// chaque ligne/instruction est composée d'un label, d'un opcode et des paramètres
-		// attention aux commentaires
-		// label = LABEL_CHARS
-		// opcode = g_env.op_tab[x][0]
-		// params = registre(r1..rx) ou direct(DIRECT_CHAR %) ou indirect() ou label
-
-		// recup du label et de l'opcode
 		trim_whitespace(&line);
 		if ((split = ft_strsplit_whitespace(line)) == NULL)
 		{
@@ -98,48 +106,15 @@ void	lexer(int fd)
 		else
 			opcode = ft_strdup(split[0]);
 		freesplit(&split);
-		
-
-		
-		
-		// boucle sur l'op_tab pour trouver l'opcode d'indice i
-		i = 0;
-		while (i < REG_NUMBER)
-		{
-			if (!ft_strcmp(opcode, g_env.op_tab[i].op))
-			{
-				op = &g_env.op_tab[i];
-				break; // op est trouvé
-			}
-			i++;
-		}
-		if (i == REG_NUMBER || !op) // si la boucle ne trouve pas l'opcode
+		op = get_op(opcode);
+		if (!op)
 		{
 			ft_printfd(STDERR, "Unknown operation on line %d: '%s'\n",line_n, line);
 			ft_exit_asm(NULL);
 		}
 
-
-
-		//maintenant que op est defini, on peut verifier le nombre d'args pour cet op
-		if ((split = ft_strsplit(line, SEPARATOR_CHAR)) == NULL)
-		{
-			ft_exit_asm("Invalid args\n");
-		}
-		// tmp_split sert a gerer le premier arg qui est un cas particulier car split[0]==:lab op arg1, split[1]=arg2 et split[2]=arg2
-		char **tmp_split = ft_strsplit_whitespace(split[0]);
-		char *arg1 = ft_strdup(tmp_split[count_split(tmp_split) - 1]);
-		char *arg2 = ft_strdup(split[1]);
-		char *arg3 = ft_strdup(split[2]);
-		freesplit(&tmp_split);
-		freesplit(&split);
-		split = (char **)malloc(4 * sizeof(char *));
-		ft_bzero((int *)split, 4);
-		split[0] = arg1;
-		split[1] = arg2;
-		split[2] = arg3;
-		i = 0;
-		int nb_arg = count_split(split);
+		char **args = get_args(line);
+		int nb_arg = count_split(args);
 		if (op->nb_arg != nb_arg)
 		{
 			if (op->nb_arg > nb_arg)
@@ -148,26 +123,11 @@ void	lexer(int fd)
 				ft_printfd(STDERR, "Too many arguments for '%s' on line %d: '%s'\n",op->op, line_n, line);
 			ft_exit_asm(NULL);
 		}
-		
-		// on a le bon nombre d'args, donc on verifie les types (T_REG, T_DIR, T_IND, T_LAB)
-		// args = registre(r1..rREG_NUMBER) ou direct(DIRECT_CHAR %) ou indirect()
-		int type;
-		i = 0;
-		while (i < nb_arg)
+
+		if (check_arg_type(args, op) != 1)
 		{
-			trim_whitespace(&split[i]);
-			type = 0;
-			type += is_t_reg(split[i], op->args[i]);
-			type += is_t_dir(split[i], op->args[i]);
-			type += is_t_ind(split[i], op->args[i]);
-			type += is_t_lab(split[i], op->args[i]);
-			if (type != 1)
-			{
-				ft_printf("type=%d\n",type);
-				ft_printfd(STDERR, "Invalid arguments on line %d: '%s'\n",line_n, line);
-				ft_exit_asm(NULL);
-			}
-			i++;
+			ft_printfd(STDERR, "Invalid arguments on line %d: '%s'\n",line_n, line);
+			ft_exit_asm(NULL);
 		}
 		line_n++;
 	}

@@ -1,1 +1,1 @@
-and r1, r2,	r3
+lab: and r1, r2,	r3
