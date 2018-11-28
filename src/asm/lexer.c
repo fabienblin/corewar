@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:15:54 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/28 15:22:49 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/28 17:24:38 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,6 +59,8 @@ char **get_args(char *line)
 	char *arg3;
 
 
+	tmp_split = NULL;
+	args = NULL;
 	arg1 = NULL;
 	arg2 = NULL;
 	arg3 = NULL;
@@ -79,10 +81,11 @@ char **get_args(char *line)
 	freesplit(&args);
 	if ((args = (char **)malloc(4 * sizeof(char *))))
 	{
-		ft_bzero((int *)args, 4);
+		ft_bzero((void *)args, 4);
 		args[0] = arg1;
 		args[1] = arg2;
 		args[2] = arg3;
+		args[3] = NULL;
 	}
 	return (args);
 }
@@ -90,7 +93,7 @@ char **get_args(char *line)
 void	lexer(int fd)
 {
 	int		gnl;
-	char	*line;
+	char	*line = NULL;
 	char	*label = NULL;
 	char	**split = NULL;
 	char	*opcode = NULL;
@@ -106,14 +109,17 @@ void	lexer(int fd)
 	{
 		trim_whitespace(&line);
 		if (ft_strlen(line) == 0)
+		{
+			ft_strdel(&line);
 			continue;
-		
+		}
 		// gestion des commentaires
 		if (!(split = ft_strsplit(line, '#')))
 		{
 			ft_printfd(STDERR, "Comment error on line %d: '%s'\n",line_n, line);
 			ft_exit_asm(NULL);
 		}
+		ft_strdel(&line);
 		line = ft_strdup(split[0]);
 		freesplit(&split);
 		
@@ -150,7 +156,9 @@ void	lexer(int fd)
 			ft_printfd(STDERR, "Unknown operation on line %d: '%s'\n",line_n, line);
 			ft_exit_asm(NULL);
 		}
-
+		ft_strdel(&opcode);
+		ft_strdel(&label);
+		
 		char **args = get_args(line);
 		int nb_arg = count_split(args);
 		if (op->nb_arg != nb_arg)
@@ -167,7 +175,13 @@ void	lexer(int fd)
 			ft_printfd(STDERR, "Invalid arguments on line %d: '%s'\n",line_n, line);
 			ft_exit_asm(NULL);
 		}
+		ft_strdel(&args[0]);
+		ft_strdel(&args[1]);
+		ft_strdel(&args[2]);
+		ft_strdel(&args[3]);
+		free(args);
 		}
+		ft_strdel(&line);
 		line_n++;
 	}
 	ft_strdel(&line);
@@ -182,5 +196,6 @@ void	lexer(int fd)
 	}
 
 	//repositionnement de la tête de lecture au debut du fichier
+	ft_printf("Fichier valide.\n");
 	lseek(fd, 0, SEEK_SET);
 }
