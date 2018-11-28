@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:15:54 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/20 16:07:22 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/28 15:22:49 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,15 +58,24 @@ char **get_args(char *line)
 	char *arg2;
 	char *arg3;
 
+
+	arg1 = NULL;
+	arg2 = NULL;
+	arg3 = NULL;
 	if ((args = ft_strsplit(line, SEPARATOR_CHAR)) == NULL)
 	{
 		ft_exit_asm("Invalid args\n");
 	}
+	
 	tmp_split = ft_strsplit_whitespace(args[0]);
 	arg1 = ft_strdup(tmp_split[count_split(tmp_split) - 1]);
-	arg2 = ft_strdup(args[1]);
-	arg3 = ft_strdup(args[2]);
 	freesplit(&tmp_split);
+	
+	if (args[1])
+		arg2 = ft_strdup(args[1]);
+	if (args[1] && args[2])
+		arg3 = ft_strdup(args[2]);
+	
 	freesplit(&args);
 	if ((args = (char **)malloc(4 * sizeof(char *))))
 	{
@@ -87,6 +96,8 @@ void	lexer(int fd)
 	char	*opcode = NULL;
 	int		line_n;
 	t_op	*op = NULL;
+	int		name = 0;
+	int		comment = 0;
 
 
 	line = NULL;
@@ -94,11 +105,39 @@ void	lexer(int fd)
 	while((gnl = get_next_line(fd, &line)) > 0)
 	{
 		trim_whitespace(&line);
-		if ((split = ft_strsplit_whitespace(line)) == NULL)
+		if (ft_strlen(line) == 0)
+			continue;
+		
+		// gestion des commentaires
+		if (!(split = ft_strsplit(line, '#')))
 		{
-			ft_exit_asm("Empty line\n");
+			ft_printfd(STDERR, "Comment error on line %d: '%s'\n",line_n, line);
+			ft_exit_asm(NULL);
 		}
-		if (split[0] && split[0][ft_strlen(split[0]) - 1] == LABEL_CHAR) // si split[i]=="LABEL_CHARS:"
+		line = ft_strdup(split[0]);
+		freesplit(&split);
+		
+
+		if (!name || !comment)
+		{
+			if (ft_strstr(line, ".name"))
+			{
+				if (!(ft_strchr(line, '"') < ft_strrchr(line, '"')))
+					ft_exit_asm("Header name syntax error.\n");
+				name = 1;
+			}
+			if (ft_strstr(line, ".comment"))
+			{
+				if (!(ft_strchr(line, '"') < ft_strrchr(line, '"')))
+					ft_exit_asm("Header comment syntax error.\n");
+				comment = 1;
+			}
+		}
+		else
+		{
+		if ((split = ft_strsplit_whitespace(line)) == NULL)
+			ft_exit_asm("Error\n");
+		if (split[0] && split[0][ft_strlen(split[0]) - 1] == LABEL_CHAR) // si split[0]=="LABEL_CHARS:"
 		{
 			label = ft_strdup(split[0]);
 			opcode = ft_strdup(split[1]);
@@ -106,8 +145,7 @@ void	lexer(int fd)
 		else
 			opcode = ft_strdup(split[0]);
 		freesplit(&split);
-		op = get_op(opcode);
-		if (!op)
+		if (!(op = get_op(opcode)))
 		{
 			ft_printfd(STDERR, "Unknown operation on line %d: '%s'\n",line_n, line);
 			ft_exit_asm(NULL);
@@ -129,9 +167,13 @@ void	lexer(int fd)
 			ft_printfd(STDERR, "Invalid arguments on line %d: '%s'\n",line_n, line);
 			ft_exit_asm(NULL);
 		}
+		}
 		line_n++;
 	}
 	ft_strdel(&line);
+	
+	if (gnl == 0 && !(name && comment))
+		ft_exit_asm("Missing header.\n");
 	
 	if (gnl == -1 || errno)
 	{
