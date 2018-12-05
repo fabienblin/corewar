@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 12:01:55 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 16:50:20 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 15:41:44 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 		ft_exit_asm(USAGE);
-	init();
+	//init();
 	fd = open(argv[1], O_RDONLY);
 	// verif lexicale du fichier
 	lexer(fd);

@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/11 11:57:11 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 15:14:23 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 15:46:53 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,10 +15,5 @@
 
 void	ft_exit_asm(char *msg)
 {
-	if (!msg)
-	{
-		;//ft_printfd(STDERR, "Error\n");
-	}
-	//free asm
 	ft_exit(msg);
 }

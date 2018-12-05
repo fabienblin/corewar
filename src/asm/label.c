@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/30 17:19:37 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/30 17:31:41 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 15:45:22 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 t_label	*new_label(char *name, int is_declared, int is_used)
 {
 	t_label	*new_label;
-	
+
 	if (!(new_label = (t_label *)ft_memalloc(sizeof(t_label))))
 		return (NULL);
 	if (name)

@@ -6,14 +6,13 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 21:27:34 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/04 16:56:43 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 15:49:04 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-// verif du formatage des labels ":LABEL_CHARS" ou "LABEL_CHARS:"
 int	is_label_str(char *str)
 {
 	if (!str)
@@ -24,20 +23,21 @@ int	is_label_str(char *str)
 			return (0);
 		str++;
 	}
-	return(1);
+	return (1);
 }
 
 int	is_t_reg(char *str, int op_arg)
 {
 	return ((op_arg & T_REG) &&
-			(str[0] == REGISTER_CHAR &&	ft_isdigit(str[1])) &&
+			(str[0] == REGISTER_CHAR && ft_isdigit(str[1])) &&
 			(ft_atoi(&str[1]) > 0 && ft_atoi(&str[1]) <= REG_NUMBER));
 }
 
 int	is_t_dir(char *str, int op_arg)
 {
 	return ((op_arg & T_DIR) && str[0] == DIRECT_CHAR &&
-			((ft_isdigit(str[1]) || (str[1] == '-' && ft_isdigit(str[2]))) || (str[1] == LABEL_CHAR &&
+			((ft_isdigit(str[1]) ||
+			(str[1] == '-' && ft_isdigit(str[2]))) || (str[1] == LABEL_CHAR &&
 			(is_label_str(&str[2])))));
 }
 

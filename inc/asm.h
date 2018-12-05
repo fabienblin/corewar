@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/11 12:01:14 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/04 15:01:31 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 15:37:26 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,23 +19,12 @@
 # define USAGE "USAGE :\n./asm file.s"
 # include <errno.h>
 
-typedef struct	s_env
-{
-	t_op	*op_tab;
-	t_ntree	*ast;
-	char 	*name;
-	char	*comment;
-}				t_env;
-
 typedef struct	s_label
 {
 	char	*name;
 	int		is_declared;
 	int		is_used;
 }				t_label;
-
-//declaration de l'env global
-t_env	g_env;
 
 void	init(void);
 void	lexer(int fd);
@@ -59,4 +48,9 @@ int		count_split(char **split);
 //label.c
 t_label	*new_label(char *name, int is_declared, int is_used);
 void	del_label(t_label **label);
+
+//lexer_ext_1.c & lexer_ext_2.c
+int		check_line(char **line, int line_n, int *header, t_list **labels);
+t_op	*valid_op_lab(char *line, int line_n, t_list **labels);
+int		valid_args(char *line, int line_n, t_op *op, t_list **labels);
 #endif
