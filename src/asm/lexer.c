@@ -6,34 +6,41 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:15:54 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/28 17:24:38 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 14:06:33 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-/* exemple de compilation :
-.name "zork"
-.comment "just a basic living prog"
-l2: sti r1,%:live,%1
-and r1,%0,r1
-live: live %1
-zjmp %:live
-# Executable compile:
-#
-# 0x0b,0x68,0x01,0x00,0x0f,0x00,0x01
-# 0x06,0x64,0x01,0x00,0x00,0x00,0x00,0x01
-# 0x01,0x00,0x00,0x00,0x01
-# 0x09,0xff,0xfb
-*/
+t_label	*get_label(char *label_name, t_list **labels)
+{
+	t_label	*label;
+	t_list	*lst;
 
-int		check_arg_type(char **args, t_op *op)
+	label = NULL;
+	lst = *labels;
+	while (lst)
+	{
+		if (!ft_strcmp(((t_label *)lst->content)->name, label_name))
+			label = (t_label *)lst->content;
+		lst = lst->next;
+	}
+	if (!label)
+	{
+		label = new_label(ft_strdup(label_name), 0, 0);
+		ft_lstadd(labels, ft_lstnew(label, sizeof(t_label)));
+	}
+	return (label);
+}
+
+int		check_arg_type(char **args, t_op *op, t_list **labels)
 {
 	int i;
 	int type;
-	int nb_arg = count_split(args);
+	int nb_arg;
 
+	nb_arg = count_split(args);
 	i = 0;
 	while (i < nb_arg)
 	{
@@ -45,157 +52,199 @@ int		check_arg_type(char **args, t_op *op)
 		type += is_t_lab(args[i], op->args[i]);
 		if (type != 1)
 			return (type);
+		if (is_t_dir(args[i], op->args[i]) && args[i][1] == LABEL_CHAR)
+		{
+			if (get_label(&args[i][2], labels))
+				get_label(&args[i][2], labels)->is_used = 1;
+		}
 		i++;
 	}
 	return (1);
 }
 
-char **get_args(char *line)
+char	**get_args(char *line)
 {
 	char **tmp_split;
 	char **args;
-	char *arg1;
-	char *arg2;
-	char *arg3;
-
 
 	tmp_split = NULL;
 	args = NULL;
-	arg1 = NULL;
-	arg2 = NULL;
-	arg3 = NULL;
 	if ((args = ft_strsplit(line, SEPARATOR_CHAR)) == NULL)
-	{
 		ft_exit_asm("Invalid args\n");
-	}
-	
 	tmp_split = ft_strsplit_whitespace(args[0]);
-	arg1 = ft_strdup(tmp_split[count_split(tmp_split) - 1]);
+	ft_strdel(&args[0]);
+	args[0] = ft_strdup(tmp_split[count_split(tmp_split) - 1]);
 	freesplit(&tmp_split);
-	
-	if (args[1])
-		arg2 = ft_strdup(args[1]);
-	if (args[1] && args[2])
-		arg3 = ft_strdup(args[2]);
-	
-	freesplit(&args);
-	if ((args = (char **)malloc(4 * sizeof(char *))))
-	{
-		ft_bzero((void *)args, 4);
-		args[0] = arg1;
-		args[1] = arg2;
-		args[2] = arg3;
-		args[3] = NULL;
-	}
 	return (args);
+}
+
+t_op	*valid_op_lab(char *line, int line_n, t_list **labels)
+{
+	char	*opcode;
+	char	**split;
+	t_op	*op;
+
+	if ((split = ft_strsplit_whitespace(line)) == NULL)
+		ft_exit_asm("Error\n");
+	if (split[0] && split[0][ft_strlen(split[0]) - 1] == LABEL_CHAR)
+	{
+		split[0][ft_strlen(split[0]) - 1] = 0;
+		if (get_label(split[0], labels))
+			get_label(split[0], labels)->is_declared = 1;
+		opcode = ft_strdup(split[1]);
+	}
+	else
+		opcode = ft_strdup(split[0]);
+	freesplit(&split);
+	if (!(op = get_op(opcode)))
+	{
+		ft_printfd(STDERR, "Unknown operation on \
+		line %d: '%s'\n", line_n, line);
+		ft_exit_asm(NULL);
+	}
+	ft_strdel(&opcode);
+	return (op);
+}
+
+int		valid_args(char *line, int line_n, t_op *op, t_list **labels)
+{
+	char	**args;
+	int		nb_arg;
+
+	args = get_args(line);
+	nb_arg = count_split(args);
+	if (op->nb_arg != nb_arg)
+	{
+		if (op->nb_arg > nb_arg)
+			ft_printfd(STDERR, "Not enough arguments for '%s' \
+			on line %d: '%s'\n", op->op, line_n, line);
+		else
+			ft_printfd(STDERR, "Too many arguments for '%s' \
+			on line %d: '%s'\n", op->op, line_n, line);
+		ft_exit_asm(NULL);
+	}
+	if (check_arg_type(args, op, labels) != 1)
+	{
+		ft_printfd(STDERR, "Invalid arguments type \
+		on line %d: '%s'\n", line_n, line);
+		ft_exit_asm(NULL);
+	}
+	freesplit(&args);
+	return (1);
+}
+
+int		check_asm(char *line, int line_n, t_list **labels)
+{
+	t_op	*op;
+
+	op = valid_op_lab(line, line_n, labels);
+	valid_args(line, line_n, op, labels);
+	return (1);
+}
+
+void	remove_comment(char **line)
+{
+	char	*comm;
+	char	*new_line;
+
+	if ((comm = ft_strchr(*line, '#')))
+	{
+		if ((ft_strstr(*line, NAME_CMD_STRING) == *line ||
+			ft_strstr(*line, COMMENT_CMD_STRING) == *line) &&
+			(ft_strchr(*line, '"') < comm &&
+			comm < ft_strrchr(*line, '"')))
+			return ;
+		else
+		{
+			new_line = ft_strsub(*line, 0, comm - *line);
+			ft_strdel(line);
+			*line = new_line;
+		}
+	}
+}
+
+int		check_header(char *line)
+{
+	static int	name = 0;
+	static int	comment = 0;
+	char		*first_quot;
+	char		*last_quot;
+
+	first_quot = ft_strchr(line, '"');
+	last_quot = ft_strrchr(line, '"');
+	if (first_quot && last_quot && ft_strstr(line, NAME_CMD_STRING) == line)
+	{
+		if (!(first_quot < last_quot))
+			ft_exit_asm("Header name syntax error.\n");
+		if (last_quot - first_quot > PROG_NAME_LENGTH)
+			ft_exit_asm("Header name is to long.\n");
+		name = 1;
+	}
+	if (first_quot && last_quot && ft_strstr(line, COMMENT_CMD_STRING) == line)
+	{
+		if (!(first_quot < last_quot))
+			ft_exit_asm("Header comment syntax error.\n");
+		if (last_quot - first_quot > COMMENT_LENGTH)
+			ft_exit_asm("Header comment is to long.\n");
+		comment = 1;
+	}
+	return (name + comment);
+}
+
+int		check_line(char **line, int line_n, int *header, t_list **labels)
+{
+	trim_whitespace(line);
+	remove_comment(line);
+	if (ft_strlen(*line) > 0)
+	{
+		if (*header < 2)
+			*header = check_header(*line);
+		else
+			check_asm(*line, line_n, labels);
+	}
+	return (1);
+}
+
+int		check_labels(t_list *labels)
+{
+	while (labels)
+	{
+		if (!((t_label *)labels->content)->is_declared)
+		{
+			ft_printfd(STDERR, "Undeclared label %s.\n",
+				((t_label *)labels->content)->name);
+		}
+		labels = labels->next;
+	}
+	return (1);
 }
 
 void	lexer(int fd)
 {
 	int		gnl;
-	char	*line = NULL;
-	char	*label = NULL;
-	char	**split = NULL;
-	char	*opcode = NULL;
+	char	*line;
 	int		line_n;
-	t_op	*op = NULL;
-	int		name = 0;
-	int		comment = 0;
-
+	int		header;
+	t_list	*labels;
 
 	line = NULL;
 	line_n = 1;
-	while((gnl = get_next_line(fd, &line)) > 0)
+	header = 0;
+	labels = NULL;
+	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
-		trim_whitespace(&line);
-		if (ft_strlen(line) == 0)
-		{
-			ft_strdel(&line);
-			continue;
-		}
-		// gestion des commentaires
-		if (!(split = ft_strsplit(line, '#')))
-		{
-			ft_printfd(STDERR, "Comment error on line %d: '%s'\n",line_n, line);
-			ft_exit_asm(NULL);
-		}
-		ft_strdel(&line);
-		line = ft_strdup(split[0]);
-		freesplit(&split);
-		
-
-		if (!name || !comment)
-		{
-			if (ft_strstr(line, ".name"))
-			{
-				if (!(ft_strchr(line, '"') < ft_strrchr(line, '"')))
-					ft_exit_asm("Header name syntax error.\n");
-				name = 1;
-			}
-			if (ft_strstr(line, ".comment"))
-			{
-				if (!(ft_strchr(line, '"') < ft_strrchr(line, '"')))
-					ft_exit_asm("Header comment syntax error.\n");
-				comment = 1;
-			}
-		}
-		else
-		{
-		if ((split = ft_strsplit_whitespace(line)) == NULL)
-			ft_exit_asm("Error\n");
-		if (split[0] && split[0][ft_strlen(split[0]) - 1] == LABEL_CHAR) // si split[0]=="LABEL_CHARS:"
-		{
-			label = ft_strdup(split[0]);
-			opcode = ft_strdup(split[1]);
-		}
-		else
-			opcode = ft_strdup(split[0]);
-		freesplit(&split);
-		if (!(op = get_op(opcode)))
-		{
-			ft_printfd(STDERR, "Unknown operation on line %d: '%s'\n",line_n, line);
-			ft_exit_asm(NULL);
-		}
-		ft_strdel(&opcode);
-		ft_strdel(&label);
-		
-		char **args = get_args(line);
-		int nb_arg = count_split(args);
-		if (op->nb_arg != nb_arg)
-		{
-			if (op->nb_arg > nb_arg)
-				ft_printfd(STDERR, "Not enough arguments for '%s' on line %d: '%s'\n",op->op, line_n, line);
-			else
-				ft_printfd(STDERR, "Too many arguments for '%s' on line %d: '%s'\n",op->op, line_n, line);
-			ft_exit_asm(NULL);
-		}
-
-		if (check_arg_type(args, op) != 1)
-		{
-			ft_printfd(STDERR, "Invalid arguments on line %d: '%s'\n",line_n, line);
-			ft_exit_asm(NULL);
-		}
-		ft_strdel(&args[0]);
-		ft_strdel(&args[1]);
-		ft_strdel(&args[2]);
-		ft_strdel(&args[3]);
-		free(args);
-		}
+		check_line(&line, line_n, &header, &labels);
 		ft_strdel(&line);
 		line_n++;
 	}
 	ft_strdel(&line);
-	
-	if (gnl == 0 && !(name && comment))
+	if (gnl == 0 && header != 2)
 		ft_exit_asm("Missing header.\n");
-	
+	check_labels(labels);
 	if (gnl == -1 || errno)
 	{
 		ft_exit_asm(strerror(errno));
 		close(fd);
 	}
-
-	//repositionnement de la tête de lecture au debut du fichier
-	ft_printf("Fichier valide.\n");
 	lseek(fd, 0, SEEK_SET);
 }
