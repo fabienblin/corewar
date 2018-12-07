@@ -25,6 +25,8 @@ int main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	// verif lexicale du fichier
 	lexer(fd);
+	ft_printf("----- Demarrage du generator -----\n");
+	ft_generator(fd, argv);
 	// création de l'AST (Abstract Syntax Tree)
 	//parse(fd);
 	// .cor

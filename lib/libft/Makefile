@@ -27,7 +27,7 @@ FT_PRINTF =	ft_constuctors.c	ft_destructors.c	ft_parse.c	ft_printf.c	\
 			ft_unicode.c		ft_type_tostring.c	ft_width_tostring.c		\
 			ft_flags_tostring.c	ft_format_setters_ext.c						\
 			ft_itoa_type_ext.c	ft_type_tostring_ext.c
-			
+
 
 FABLIN =	ft_exit.c		ft_realloc.c	ft_lstpush.c	ft_lstdup.c		\
 			ft_swapptr.c	get_next_line.c	ft_strjoinfree.c				\
@@ -52,6 +52,8 @@ CFILES =	ft_memset.c		ft_strcat.c		ft_isdigit.c	ft_striter.c	\
 		 	ft_strdup.c		ft_strncmp.c	ft_strnew.c		ft_strtrim.c	\
 			ft_strcpy.c		ft_atoi.c		ft_strdel.c		ft_strsplit.c	\
 			ft_strncpy.c	ft_isalpha.c	ft_strclr.c		ft_itoa.c		\
+			ft_isnumber.c	ft_countchar.c	ft_strsupchr.c					\
+			ft_strsplitwhitespace.c			ft_free_strsplit.c				\
 			$(BONUS)		$(FABLIN)
 
 SOURCES =	$(addprefix $(SRC_DIR), $(CFILES)) $(addprefix $(PRINTF_DIR), $(FT_PRINTF))

@@ -159,4 +159,13 @@ int				ft_lstlen(t_list *sons);
 void			bresenham(t_grid *grid, t_seg *seg, int val);
 int				ft_iswhitespace(char c);
 char			**ft_strsplit_whitespace(char const *s);
+/*
+**SLATCHMA
+*/
+int				ft_isnumber(char *str);
+int				ft_countchar(char *str, char c);
+int				ft_strsupchr(const char *s, int c);
+char			**ft_strsplitwhitespace(char const *s, char c);
+void 			ft_free_strsplit(char ***split);
+
 #endif

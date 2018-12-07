@@ -26,6 +26,35 @@ typedef struct	s_label
 	int		is_used;
 }				t_label;
 
+typedef struct		s_labelg
+{
+	char 			*name;
+	char			type;
+	int				place;
+	int				size_octet;
+	int				placeopcode;
+	struct s_labelg	*next;
+}					t_labelg;
+
+typedef struct		s_ggeneral
+{
+	int				compt;
+	int				tmp;
+	int				tmpheader;
+	int				placeopcode;
+	unsigned int	placement_size;
+	unsigned int	placement_beginprog;
+
+}					t_ggeneral;
+
+typedef struct		s_champbits
+{
+     unsigned b4	: 8;
+     unsigned b3	: 8;
+     unsigned b2	: 8;
+	 unsigned b1	: 8;
+}					t_champbits;
+
 void	init(void);
 void	lexer(int fd);
 void	parse(int fd);
@@ -53,4 +82,26 @@ void	del_label(t_label **label);
 int		check_line(char **line, int line_n, int *header, t_list **labels);
 t_op	*valid_op_lab(char *line, int line_n, t_list **labels);
 int		valid_args(char *line, int line_n, t_op *op, t_list **labels);
+
+//generator
+int					ft_generator(int fdin, char **argv);
+void				ft_generator_header(int fd, int fdout, t_ggeneral *report);
+void				ft_octet_one(int fdout, int nbre, int *compt);
+void				ft_octet_two(int fdout, int nbre, int *compt);
+void				ft_octet_four(int fdout, int nbre, int *compt);
+char				*ft_savetext(char **savetext, char *line);
+void				ft_generator_body(int fdin, int fdout, t_ggeneral *report);
+t_labelg				*ft_lstlabelorigin(t_labelg *lstlabel, char *label, t_ggeneral *report);
+t_labelg				*ft_lstlabelind(t_labelg *lstlabel, char *label, t_ggeneral *report);
+t_labelg				*ft_lstlabeldir(t_labelg *lstlabel, char *label, int size_octet, t_ggeneral *report);
+t_labelg				*ft_write_label(t_labelg *lstlabel, char *text, t_ggeneral *report);
+int					ft_write_opcode(int fdout, char **tabtext, int i, t_ggeneral *report);
+void				ft_write_registre(int fdout, char *text, t_ggeneral *report);
+t_labelg				*ft_write_indirect(int fdout, char *text, t_ggeneral *report, t_labelg *lstlabel);
+t_labelg				*ft_write_direct(int fdout, char *text, t_ggeneral *report, t_labelg *lstlabel);
+int					ft_octet_param(char **tabtext, int i, int nb_arg);
+void				ft_delete_comment(char *line);
+void				ft_lstlabelfree(t_labelg **lstlabel);
+int					ft_hashtag_header(char *tmp);
+int					ft_comment_header(char *line);
 #endif

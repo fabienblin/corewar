@@ -25,9 +25,16 @@ ASM_OBJ_DIR =	./asm_obj/
 
 COR_CFILES =	main.c exit.c
 
-ASM_CFILES =	main.c		exit.c		generator.c	lexer.c \
-				parser.c	op.c		arg_types.c utils.c \
-				label.c		lexer_ext_1.c			lexer_ext_2.c
+ASM_CFILES =	main.c		exit.c		lexer.c \
+				op.c		arg_types.c utils.c \
+				label.c		lexer_ext_1.c			lexer_ext_2.c \
+		generator.c			\
+		generator_header.c	\
+		write_octet.c			\
+		other.c				\
+		generator_body.c		\
+		lstlabel.c			\
+		write_param.c
 
 COR_SOURCES =	$(addprefix $(COR_SRC_DIR), $(COR_CFILES))
 
@@ -92,7 +99,7 @@ install :
 test :
 	@make -C ./lib/libft
 	gcc $(SOURCES) -L ./lib/libft/ -lft -o test_corewar -I $(INC_DIR) -I ./lib/libft/inc/
-	
+
 debug_asm : libft
 	gcc -ggdb $(ASM_SOURCES) ./lib/libft/libft.a -I ./lib/libft/inc -I ./inc -o asm_debug
 	lldb ./asm_debug test.s
