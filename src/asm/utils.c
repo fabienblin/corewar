@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/20 15:27:37 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 15:44:51 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/13 18:31:09 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,12 +24,12 @@ void	trim_whitespace(char **str)
 	start = *str;
 	while (*start && ft_iswhitespace(*start))
 		start++;
-	end = &start[ft_strlen(start)];
+	end = &start[ft_strlen(start) - 1];
 	while (end > start && ft_iswhitespace(*end))
 		end--;
 	if (start != *str || end != &str[0][ft_strlen(*str) - 1])
 	{
-		trim = ft_strsub(*str, start - *str, end - start);
+		trim = ft_strsub(*str, start - *str, end - start + 1);
 		ft_strdel(str);
 		*str = trim;
 	}

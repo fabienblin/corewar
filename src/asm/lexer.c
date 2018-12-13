@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:15:54 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 15:30:01 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/13 18:04:38 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,23 +31,21 @@ void	lexer(int fd)
 {
 	int		gnl;
 	char	*line;
-	int		line_n;
-	int		header;
 	t_list	*labels;
 
-	line_n = 1;
-	header = 0;
 	labels = NULL;
+	if (check_header(fd) != VALID_HEADER)
+		ft_exit_asm("Header error.\n");
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
-		check_line(&line, line_n, &header, &labels);
+		trim_whitespace(&line);
+		remove_comment(&line);
+		check_line(line, &labels);
 		ft_strdel(&line);
-		line_n++;
 	}
 	ft_strdel(&line);
-	if (gnl == 0 && header != 2)
-		ft_exit_asm("Missing header.\n");
 	check_labels(labels);
+	ft_lstdel(&labels, del_label);
 	if (gnl == -1 || errno)
 	{
 		ft_exit_asm(strerror(errno));

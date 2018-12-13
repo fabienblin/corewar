@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/28 17:35:42 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/30 11:33:34 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/13 14:16:07 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@
 
 # define STDIN 0
 # define STDOUT 1
-# define STDERR 2
+# define STDERR 1
 
 
 /*

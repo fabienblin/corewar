@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/11 12:01:14 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 15:37:26 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/13 19:13:37 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,7 @@
 # include "op.h"
 # include <sys/types.h>
 # define USAGE "USAGE :\n./asm file.s"
+# define VALID_HEADER (2)
 # include <errno.h>
 
 typedef struct	s_label
@@ -76,12 +77,17 @@ int		count_split(char **split);
 
 //label.c
 t_label	*new_label(char *name, int is_declared, int is_used);
-void	del_label(t_label **label);
+void	del_label(void *label, size_t size);
 
-//lexer_ext_1.c & lexer_ext_2.c
-int		check_line(char **line, int line_n, int *header, t_list **labels);
-t_op	*valid_op_lab(char *line, int line_n, t_list **labels);
-int		valid_args(char *line, int line_n, t_op *op, t_list **labels);
+//lexer_asm_1.c & lexer_asm_2.c
+int		check_line(char *line, t_list **labels);
+void	remove_comment(char **line);
+t_op	*valid_op_lab(char *line, t_list **labels);
+int		valid_args(char *line, t_op *op, t_list **labels);
+
+//lexer_header_1/2.c
+int		check_header(int fd);
+void	skip_empty_lines(int fd, char **line);
 
 //generator
 int					ft_generator(int fdin, char **argv);

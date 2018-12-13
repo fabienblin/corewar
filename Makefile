@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/10/08 18:51:13 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/05 15:40:21 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/13 19:14:00 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -25,16 +25,17 @@ ASM_OBJ_DIR =	./asm_obj/
 
 COR_CFILES =	main.c exit.c
 
-ASM_CFILES =	main.c		exit.c		lexer.c \
-				op.c		arg_types.c utils.c \
-				label.c		lexer_ext_1.c			lexer_ext_2.c \
-		generator.c			\
-		generator_header.c	\
-		write_octet.c			\
-		other.c				\
-		generator_body.c		\
-		lstlabel.c			\
-		write_param.c
+ASM_CFILES =	main.c		exit.c			lexer.c \
+				op.c		arg_types.c 	utils.c \
+				label.c		lexer_asm_1.c	lexer_asm_2.c \
+				lexer_header_1.c lexer_header_2.c \
+				generator.c			\
+				generator_header.c	\
+				write_octet.c			\
+				other.c				\
+				generator_body.c		\
+				lstlabel.c			\
+				write_param.c
 
 COR_SOURCES =	$(addprefix $(COR_SRC_DIR), $(COR_CFILES))
 

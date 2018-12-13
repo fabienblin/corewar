@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   generator_body.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: slatchma <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: slatchma <slatchma@student.42.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 18:22:53 by slatchma     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/30 16:08:27 by slatchma    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/13 19:10:52 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,9 +90,9 @@ static t_labelg	*ft_write_body(int fdout, char **tabtext, t_ggeneral *report,
 
 void			ft_generator_body(int fdin, int fdout, t_ggeneral *report)
 {
-	char	*line;
-	char	*savetext;
-	char	**tabtext;
+	char		*line;
+	char		*savetext;
+	char		**tabtext;
 	t_labelg	*lstlabel;
 
 	line = NULL;

@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:33:27 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/16 16:39:08 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/11 21:03:46 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@
 
 # define MAX_ARGS_NUMBER		(4)
 # define MAX_PLAYERS			(4)
-# define MEM_SIZE				(4*1024)
+# define MEM_SIZE				(4 * 1024)
 # define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
