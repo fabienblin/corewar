@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   lexer_header.c                                   .::    .:/ .      .::   */
+/*   lexer_header_1.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/12 12:29:42 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 19:12:24 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/14 14:54:35 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,18 +70,22 @@ int		valid_header_name(int fd)
 	char	*line;
 	char	*first_quot;
 	char	*last_quot;
+	int		error;
 
+	error = 0;
 	skip_empty_lines(fd, &line);
-	if (ft_strstr(line, NAME_CMD_STRING))
+	if (line && ft_strstr(line, NAME_CMD_STRING))
 	{
 		first_quot = ft_strchr(line, '"');
 		last_quot = ft_strrchr(line, '"');
 		if (last_quot == first_quot)
 			multiline_header_name(fd, &first_quot, &last_quot, &line);
-		else
-			ft_strdel(&line);
+		error = last_quot < first_quot;
 	}
-	return (1);
+	else
+		error++;
+	ft_strdel(&line);
+	return (error);
 }
 
 int		valid_header_comment(int fd)
@@ -89,18 +93,22 @@ int		valid_header_comment(int fd)
 	char	*line;
 	char	*first_quot;
 	char	*last_quot;
+	int		error;
 
+	error = 0;
 	skip_empty_lines(fd, &line);
-	if (ft_strstr(line, COMMENT_CMD_STRING))
+	if (line && ft_strstr(line, COMMENT_CMD_STRING))
 	{
 		first_quot = ft_strchr(line, '"');
 		last_quot = ft_strrchr(line, '"');
 		if (last_quot == first_quot)
 			multiline_header_comment(fd, &first_quot, &last_quot, &line);
-		else
-			ft_strdel(&line);
+		error = last_quot < first_quot;
 	}
-	return (1);
+	else
+		error++;
+	ft_strdel(&line);
+	return (error);
 }
 
 int		check_header(int fd)
@@ -111,6 +119,10 @@ int		check_header(int fd)
 	name = 0;
 	comment = 0;
 	name = valid_header_name(fd);
+	if (name)
+		ft_exit_asm("Header name is invalid.\n");
 	comment = valid_header_comment(fd);
+	if (comment)
+		ft_exit_asm("Header comment is invalid.\n");
 	return (name + comment);
 }

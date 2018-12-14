@@ -6,12 +6,30 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 15:28:42 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 18:03:24 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/14 16:17:06 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+t_op	*valid_op_lab(char *line, t_list **labels)
+{
+	char	*opcode;
+	char	**split;
+	t_op	*op;
+
+	split = ft_strsplit_whitespace(line);
+	opcode = get_op_on_line(line, labels, split);
+	freesplit(&split);
+	if (!(op = get_op(opcode)) && opcode)
+	{
+		ft_printfd(STDERR, "Unknown operation on line : '%s'\n", line);
+		ft_exit_asm(NULL);
+	}
+	ft_strdel(&opcode);
+	return (op);
+}
 
 void	remove_comment(char **line)
 {

@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 15:25:17 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 19:03:46 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/14 16:15:47 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,32 +84,30 @@ char	**get_args(char *line)
 	return (args);
 }
 
-t_op	*valid_op_lab(char *line, t_list **labels)
+char	*get_op_on_line(char *line, t_list **labels, char **split)
 {
 	char	*opcode;
-	char	**split;
-	t_op	*op;
 	t_label	*lab;
 
-	if ((split = ft_strsplit_whitespace(line)) == NULL)
-		ft_exit_asm("Error\n");
 	if (split[0] && split[0][ft_strlen(split[0]) - 1] == LABEL_CHAR)
 	{
 		split[0][ft_strlen(split[0]) - 1] = 0;
 		if ((lab = get_label(split[0], labels)))
-			lab->is_declared = 1;
+		{
+			if (lab->is_declared == 0)
+				lab->is_declared = 1;
+			else
+			{
+				ft_printfd(STDERR, "Label is allready declared on line : \
+				'%s'\n", line);
+				ft_exit_asm(NULL);
+			}
+		}
 		opcode = ft_strdup(split[1]);
 	}
 	else
 		opcode = ft_strdup(split[0]);
-	freesplit(&split);
-	if (!(op = get_op(opcode)) && opcode)
-	{
-		ft_printfd(STDERR, "Unknown operation on line : '%s'\n", line);
-		ft_exit_asm(NULL);
-	}
-	ft_strdel(&opcode);
-	return (op);
+	return (opcode);
 }
 
 int		valid_args(char *line, t_op *op, t_list **labels)

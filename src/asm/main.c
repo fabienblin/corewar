@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 12:01:55 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 19:09:20 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/14 14:17:43 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,11 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (argc != 2)
 		ft_exit_asm(USAGE);
-	fd = open(argv[1], O_RDONLY);
+	if ((fd = open(argv[1], O_RDONLY)) < 0 || errno)
+	{
+		ft_exit_asm(strerror(errno));
+		close(fd);
+	}
 	lexer(fd);
 	ft_printf("----- Demarrage du generator -----\n");
 	ft_generator(fd, argv);

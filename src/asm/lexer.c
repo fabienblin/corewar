@@ -6,25 +6,29 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:15:54 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 18:04:38 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/14 16:02:36 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		check_labels(t_list *labels)
+int		check_label_declarations(t_list *labels)
 {
+	int	errors;
+
+	errors = 0;
 	while (labels)
 	{
 		if (!((t_label *)labels->content)->is_declared)
 		{
 			ft_printfd(STDERR, "Undeclared label %s.\n",
 				((t_label *)labels->content)->name);
+			errors++;
 		}
 		labels = labels->next;
 	}
-	return (1);
+	return (errors);
 }
 
 void	lexer(int fd)
@@ -34,7 +38,7 @@ void	lexer(int fd)
 	t_list	*labels;
 
 	labels = NULL;
-	if (check_header(fd) != VALID_HEADER)
+	if (check_header(fd))
 		ft_exit_asm("Header error.\n");
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
@@ -44,7 +48,7 @@ void	lexer(int fd)
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
-	check_labels(labels);
+	check_label_declarations(labels);
 	ft_lstdel(&labels, del_label);
 	if (gnl == -1 || errno)
 	{
