@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 12:01:55 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/14 14:17:43 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/14 17:11:07 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,8 +27,8 @@ int	main(int argc, char **argv)
 		close(fd);
 	}
 	lexer(fd);
-	ft_printf("----- Demarrage du generator -----\n");
 	ft_generator(fd, argv);
+	ft_printf("Writing output program to %s.cor\n", argv[1]);
 	close(fd);
 	ft_exit_asm(NULL);
 	return (0);
