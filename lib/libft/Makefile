@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2017/11/28 17:35:55 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/11/19 15:51:27 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/14 19:14:49 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -64,7 +64,7 @@ OBJECTS =	$(addprefix $(OBJ_DIR), $(OFILES))
 
 FLAGS =		-Wall -Wextra -Werror
 
-all : obj $(NAME)
+all : $(NAME)
 
 $(NAME) : obj $(OBJECTS)
 	ar rc $(NAME) $(OBJECTS)
