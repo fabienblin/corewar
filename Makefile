@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/12/14 17:52:22 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/14 19:12:00 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/15 13:44:11 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -15,15 +15,19 @@ FLAGS =		-Wall -Wextra -Werror
 
 INC_DIR =	./inc/
 
-all : libft asm corewar
+ASM = ./asm
+
+COREWAR = ./corewar
+
+all : libft $(ASM) $(COREWAR)
 
 libft :
 	@make -C ./lib/libft/
 
-asm :
+$(ASM) :
 	@make -C ./src/asm/
 
-corewar :
+$(COREWAR) :
 	@make -C ./src/corewar/
 
 clean :

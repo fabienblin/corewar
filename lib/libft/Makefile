@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2017/11/28 17:35:55 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/14 19:14:49 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/15 13:34:46 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -66,8 +66,8 @@ FLAGS =		-Wall -Wextra -Werror
 
 all : $(NAME)
 
-$(NAME) : obj $(OBJECTS)
-	ar rc $(NAME) $(OBJECTS)
+$(NAME) : $(OBJ_DIR) $(OBJECTS)
+	@ar -rcs $(NAME) $(OBJECTS)
 	@echo "===> LIBFT HAS BEEN COMPILED <==="
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
@@ -76,7 +76,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 $(OBJ_DIR)%.o : $(PRINTF_DIR)%.c
 	gcc $(FLAGS) -c $< -o $@ -I $(INC_DIR)
 
-obj :
+$(OBJ_DIR) :
 	@mkdir -p $(OBJ_DIR)
 
 clean : obj
