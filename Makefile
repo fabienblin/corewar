@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/12/14 17:52:22 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/15 13:44:11 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/15 15:59:14 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -19,7 +19,9 @@ ASM = ./asm
 
 COREWAR = ./corewar
 
-all : libft $(ASM) $(COREWAR)
+all : libft
+	@make -C ./src/asm/
+	@make -C ./src/corewar/
 
 libft :
 	@make -C ./lib/libft/

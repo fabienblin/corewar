@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/10/08 18:51:13 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/15 13:40:12 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/15 15:59:20 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -29,9 +29,11 @@ FLAGS =		-Wall -Wextra -Werror
 
 INC_DIR =	../../inc/
 
+LIBFT = ../../lib/libft/libft.a
+
 all : $(COR_OBJ_DIR) $(COREWAR)
 
-$(COREWAR) : $(COR_OBJECTS)
+$(COREWAR) : $(COR_OBJECTS) $(LIBFT)
 	gcc $(FLAGS) $(COR_OBJECTS) -L ../../lib/libft/ -lft -o $(COREWAR)
 
 $(COR_OBJ_DIR)%.o : $(COR_SRC_DIR)%.c
