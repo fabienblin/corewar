@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_exit.c                                        .::    .:/ .      .::   */
+/*   ft_revstr.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fblin <fblin@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: vsteyaer <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2016/01/27 15:16:57 by fblin        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/26 14:47:14 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2018/01/24 12:21:44 by vsteyaer     #+#   ##    ##    #+#       */
+/*   Updated: 2018/01/24 12:51:58 by vsteyaer    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit(char *err_message)
+char	*ft_revstr(char *str)
 {
-	ft_putendl(err_message);
-	exit(1);
+	int		i;
+	int		length;
+	char	*tmp;
+
+	i = -1;
+	length = ft_strlen(str);
+	if (!(tmp = malloc(length + 1)))
+		return (NULL);
+	while (length >= 0)
+	{
+		tmp[++i] = str[--length];
+	}
+	tmp[i] = '\0';
+	return (tmp);
 }

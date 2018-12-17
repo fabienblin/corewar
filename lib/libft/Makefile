@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2017/11/28 17:35:55 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/15 13:34:46 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/15 17:06:06 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -36,6 +36,18 @@ FABLIN =	ft_exit.c		ft_realloc.c	ft_lstpush.c	ft_lstdup.c		\
 			ft_ntree.c		ft_strfreejoin.c				ft_lstlen.c		\
 			ft_strsplit_whitespace.c		ft_iswhitespace.c
 
+FPUPIER =	ft_wstrnew.c	ft_wstrlen.c	ft_wstrcpy.c	ft_wstrcat.c	\
+			ft_wcharlen.c	ft_uitoa_base.c	ft_strndup.c	ft_strisxdigit.c\
+			ft_strisupper.c	ft_strisspace.c	ft_strisprint.c	ft_strislower.c	\
+			ft_strisdigit.c	ft_strisdigit_pos_neg.c			ft_strisascii.c	\
+			ft_strisalpha.c	ft_strisalnum.c	ft_savetext.c	ft_revstr.c		\
+			ft_revnstr.c	ft_putwstr.c	ft_putwchar.c	ft_memjoin.c	\
+			ft_memcat.c		ft_lstsplit.c	ft_lstndup.c	ft_lstncat.c	\
+			ft_lstisdigit.c	ft_lstisalpha.c	ft_lstisalnum.c	ft_lstfree.c	\
+			ft_lstcat.c		ft_limits.c		ft_isxdigit.c	ft_isupper.c	\
+			ft_isspace.c	ft_islower.c	ft_isgraph.c	ft_iscntrl.c	\
+			ft_isblank.c	ft_digitlenneg.c				ft_digitlen.c
+
 BONUS =		ft_lstnew.c		ft_lstdelone.c	ft_lstdel.c		ft_lstadd.c		\
 			ft_lstiter.c	ft_lstmap.c
 
@@ -54,7 +66,7 @@ CFILES =	ft_memset.c		ft_strcat.c		ft_isdigit.c	ft_striter.c	\
 			ft_strncpy.c	ft_isalpha.c	ft_strclr.c		ft_itoa.c		\
 			ft_isnumber.c	ft_countchar.c	ft_strsupchr.c					\
 			ft_strsplitwhitespace.c			ft_free_strsplit.c				\
-			$(BONUS)		$(FABLIN)
+			$(BONUS)		$(FABLIN)		$(FPUPIER)
 
 SOURCES =	$(addprefix $(SRC_DIR), $(CFILES)) $(addprefix $(PRINTF_DIR), $(FT_PRINTF))
 

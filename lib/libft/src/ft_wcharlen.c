@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_exit.c                                        .::    .:/ .      .::   */
+/*   ft_wcharlen.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fblin <fblin@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: vsteyaer <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2016/01/27 15:16:57 by fblin        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/26 14:47:14 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/19 20:59:52 by vsteyaer     #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/07 10:41:58 by vsteyaer    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit(char *err_message)
+size_t	ft_wcharlen(wchar_t c)
 {
-	ft_putendl(err_message);
-	exit(1);
+	int len;
+
+	len = 0;
+	if (c >= 0xD800 && c <= 0xDFFF)
+		len = -1;
+	else if (c <= 0x7F || (c <= 0xFF && MB_CUR_MAX == 1))
+		len = 1;
+	else if (c <= 0x7FF)
+		len = 2;
+	else if (c <= 0xFFFF)
+		len = 3;
+	else if (c <= 0x10FFFF)
+		len = 4;
+	else
+		len = -1;
+	return (len);
 }

@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_exit.c                                        .::    .:/ .      .::   */
+/*   ft_wstrnew.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fblin <fblin@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: vsteyaer <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2016/01/27 15:16:57 by fblin        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/26 14:47:14 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/20 20:07:37 by vsteyaer     #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/07 10:42:39 by vsteyaer    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit(char *err_message)
+wchar_t		*ft_wstrnew(size_t size)
 {
-	ft_putendl(err_message);
-	exit(1);
+	wchar_t	*wtmp;
+	size_t	i;
+
+	i = 0;
+	if (!(wtmp = (wchar_t *)malloc(sizeof(wchar_t) * (size + 1))))
+		return (NULL);
+	while (i <= size)
+	{
+		wtmp[i] = '\0';
+		i++;
+	}
+	return (wtmp);
 }

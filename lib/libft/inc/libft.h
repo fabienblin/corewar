@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/28 17:35:42 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 14:16:07 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/17 16:29:54 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,9 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
+# include <stdint.h>
+# include <stdio.h>
 
 # include "get_next_line.h"
 # include "ft_printf.h"
@@ -27,6 +30,8 @@
 # define STDOUT 1
 # define STDERR 1
 
+# define UNSIGNED 0
+# define SIGNED	1
 
 /*
 **FIRST PART
@@ -167,5 +172,48 @@ int				ft_countchar(char *str, char c);
 int				ft_strsupchr(const char *s, int c);
 char			**ft_strsplitwhitespace(char const *s, char c);
 void 			ft_free_strsplit(char ***split);
+/*
+**FPUPIER
+*/
+t_list				*ft_lstsplit(char const *s, char c);
+int					ft_strisalpha(const char *s);
+int					ft_strisdigit(const char *s);
+int					ft_strisdigit_pos_neg(const char *s);
+int					ft_strisalnum(const char *s);
+int					ft_strisascii(const char *s);
+int					ft_strisprint(const char *s);
+int					ft_strisspace(const char *s);
+int					ft_strisupper(const char *s);
+int					ft_strislower(const char *s);
+int					ft_strisxdigit(const char *s);
+int					ft_isspace(int c);
+int					ft_isupper(int c);
+int					ft_islower(int c);
+int					ft_isblank(int c);
+int					ft_iscntrl(int c);
+int					ft_isgraph(int c);
+int					ft_isxdigit(int c);
+void				ft_lstfree(t_list *lst);
+t_list				*ft_lstndup(const t_list *lst, size_t n);
+t_list				*ft_lstcat(t_list *lst_dst, t_list *lst_src);
+t_list				*ft_lstncat(t_list *lst_dst, t_list *lst_src, size_t n);
+int					ft_lstisalpha(const t_list *list);
+int					ft_lstisdigit(const t_list *list);
+int					ft_lstisalnum(const t_list *list);
+int					ft_digitlenneg(long long n);
+int					ft_digitlen(long long n);
+int					ft_limits(char *str, int sign, long long limit);
+size_t				ft_wcharlen(wchar_t c);
+wchar_t				*ft_wstrcat(wchar_t *ws1, wchar_t *ws2);
+wchar_t				*ft_wstrcpy(wchar_t *wdst, wchar_t *wsrc);
+size_t				ft_wstrlen(wchar_t *wstr);
+wchar_t				*ft_wstrnew(size_t size);
+int					ft_putwchar(wchar_t wc);
+void				ft_putwstr(wchar_t *str);
+char				*ft_savetext(char **savetext, char *line);
+char				*ft_revstr(char *str);
+char				*ft_revnstr(char *str, int oct);
+void				*ft_memcat(void *dst, size_t start, const void *src,
+					size_t len_src);
 
 #endif

@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_exit.c                                        .::    .:/ .      .::   */
+/*   putwstr.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fblin <fblin@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: vsteyaer <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2016/01/27 15:16:57 by fblin        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/26 14:47:14 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/09 13:07:44 by vsteyaer     #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/07 10:32:58 by vsteyaer    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit(char *err_message)
+void	ft_putwstr(wchar_t *str)
 {
-	ft_putendl(err_message);
-	exit(1);
+	int	i;
+
+	i = 0;
+	if (str)
+	{
+		while (str[i] != '\0')
+		{
+			ft_putwchar(str[i]);
+			i++;
+		}
+	}
 }

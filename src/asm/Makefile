@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/10/08 18:51:13 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/15 15:59:24 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/17 16:17:11 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -58,5 +58,9 @@ re :
 	@rm -f $(ASM)
 	@rm -rf $(ASM_OBJ_DIR)
 	@make
+
+debug :
+	gcc -ggdb $(ASM_SOURCES) ../../lib/libft/libft.a -I ../../lib/libft/inc -I $(INC_DIR) -o asm_debug
+	lldb ./asm_debug ../../test.s
 
 .PHONY: all clean fclean re obj

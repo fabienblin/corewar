@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_strrchr.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
+/*   By: fablin <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/28 17:35:30 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 14:55:22 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/11/28 17:35:30 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,8 +17,6 @@ char	*ft_strrchr(const char *s, int c)
 {
 	int		i;
 
-	if (!s)
-		return (NULL);
 	i = ft_strlen(s);
 	while (0 <= i)
 	{

@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_exit.c                                        .::    .:/ .      .::   */
+/*   ft_lstfree.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fblin <fblin@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: fpupier <fpupier@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2016/01/27 15:16:57 by fblin        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/26 14:47:14 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/04 19:48:48 by fpupier      #+#   ##    ##    #+#       */
+/*   Updated: 2018/12/15 16:57:15 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit(char *err_message)
+void	ft_lstfree(t_list *lst)
 {
-	ft_putendl(err_message);
-	exit(1);
+	t_list	*tmp;
+
+	while (lst)
+	{
+		tmp = lst->next;
+		lst->content = 0;
+		lst->next = NULL;
+		free(lst->content);
+		free(lst);
+		lst = tmp;
+	}
 }

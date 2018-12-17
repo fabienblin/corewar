@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/12/14 17:52:22 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/15 15:59:14 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/17 13:39:26 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -46,6 +46,12 @@ re :
 	@make re -C ./lib/libft/
 	@make re -C ./src/asm/
 	@make re -C ./src/corewar/
+
+debug_asm : libft
+	make debug -C ./src/asm/
+
+debug_corewar : libft
+	make debug -C ./src/corewar/
 
 install :
 	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh

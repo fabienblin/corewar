@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_exit.c                                        .::    .:/ .      .::   */
+/*   ft_memcat.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fblin <fblin@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: fpupier <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2016/01/27 15:16:57 by fblin        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/26 14:47:14 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/04 19:48:52 by fpupier      #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/23 16:30:40 by fpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit(char *err_message)
+void	*ft_memcat(void *dst, size_t start, const void *src, size_t len_src)
 {
-	ft_putendl(err_message);
-	exit(1);
+	size_t					i;
+	unsigned char			*dst_tmp;
+	const unsigned char		*src_tmp;
+
+	dst_tmp = dst;
+	src_tmp = (const unsigned char *)src;
+	i = 0;
+	while (i != len_src)
+	{
+		dst_tmp[start + i] = src_tmp[i];
+		i++;
+	}
+	return (dst);
 }

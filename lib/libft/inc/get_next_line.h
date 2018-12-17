@@ -6,7 +6,7 @@
 /*   By: fblin <fblin@student.42.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2016/01/02 13:22:38 by fblin        #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 14:45:27 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/15 16:45:16 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,16 @@ typedef struct	s_reader
 	char	*prev;
 	int		line_n;
 }				t_reader;
+
+typedef struct		s_gnl
+{
+	int				fd;
+	char			*str;
+	unsigned int	size;
+	unsigned int	nb;
+	char			*endl;
+	struct s_gnl	*next;
+}					t_gnl;
 
 int				get_next_line(int const fd, char **line);
 char			*ft_strfreejoin(char *s1, char *s2);

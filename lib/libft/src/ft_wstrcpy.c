@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_exit.c                                        .::    .:/ .      .::   */
+/*   ft_wstrcpy.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fblin <fblin@student.le-101.fr>            +:+   +:    +:    +:+     */
+/*   By: vsteyaer <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2016/01/27 15:16:57 by fblin        #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/26 14:47:14 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/20 18:08:28 by vsteyaer     #+#   ##    ##    #+#       */
+/*   Updated: 2018/04/07 10:42:18 by vsteyaer    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_exit(char *err_message)
+wchar_t	*ft_wstrcpy(wchar_t *wdst, wchar_t *wsrc)
 {
-	ft_putendl(err_message);
-	exit(1);
+	int i;
+
+	i = 0;
+	while (wsrc[i] != '\0')
+	{
+		wdst[i] = wsrc[i];
+		i++;
+	}
+	wdst[i] = '\0';
+	return (wdst);
 }
