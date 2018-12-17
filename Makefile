@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/12/14 17:52:22 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/17 13:39:26 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/17 16:42:35 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -57,5 +57,8 @@ install :
 	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
 	brew install npm
 	brew install soket.io
+
+remove_cor :
+	find ./ -type f -name "*.cor" -delete
 
 .PHONY: all clean fclean re libft corewar asm
