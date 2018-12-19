@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 12:01:55 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/14 17:11:07 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/19 23:35:35 by slatchma    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
+	ft_secure_h();
 	if (argc != 2)
 		ft_exit_asm(USAGE);
 	if ((fd = open(argv[1], O_RDONLY)) < 0 || errno)
@@ -28,7 +29,6 @@ int	main(int argc, char **argv)
 	}
 	lexer(fd);
 	ft_generator(fd, argv);
-	ft_printf("Writing output program to %s.cor\n", argv[1]);
 	close(fd);
 	ft_exit_asm(NULL);
 	return (0);

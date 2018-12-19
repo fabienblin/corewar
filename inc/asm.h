@@ -118,4 +118,5 @@ void				ft_delete_comment(char *line);
 void				ft_lstlabelfree(t_labelg **lstlabel);
 int					ft_hashtag_header(char *tmp);
 int					ft_comment_header(char *line);
+int					ft_secure_h(void);
 #endif

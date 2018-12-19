@@ -22,7 +22,8 @@ ASM_CFILES =	main.c				exit.c					lexer.c \
 				label.c				lexer_asm_1.c			lexer_asm_2.c \
 				lexer_header_1.c	lexer_header_2.c		generator.c	\
 				generator_header.c	write_octet.c			other.c	\
-				generator_body.c	lstlabel.c				write_param.c
+				generator_body.c	lstlabel.c				write_param.c \
+				secure_h.c
 
 ASM_SOURCES =	$(addprefix $(ASM_SRC_DIR), $(ASM_CFILES))
 

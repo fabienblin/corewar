@@ -75,9 +75,22 @@ int			ft_octet_param(char **tabtext, int i, int nb_arg)
 void		ft_delete_comment(char *line)
 {
 	int i;
+	int tab[2];
 
-	i = 0;
-	if ((i = ft_strsupchr(line, COMMENT_CHAR)) != -1)
+	i = -1;
+	tab[0] = ft_strsupchr(line, COMMENT_CHAR);
+	tab[1] = ft_strsupchr(line, ';');
+	if (tab[0] > tab[1])
+	{
+		i = tab[0];
+		tab[0] = tab[1];
+		tab[1] = i;
+	}
+	if (tab[0] >= 0)
+		i = tab[0];
+	else
+		i = tab[1];
+	if (i > -1)
 	{
 		while (line[i] != '\0')
 		{
