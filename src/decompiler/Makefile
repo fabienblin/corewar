@@ -11,19 +11,15 @@
 #                                                        /                   #
 # ************************************************************************** #
 
-ASM		=	../../asm
+ASM		=	../../decompiler
 
 ASM_SRC_DIR =	./
 
-ASM_OBJ_DIR =	../../asm_obj/
+ASM_OBJ_DIR =	../../dec_obj/
 
-ASM_CFILES =	main.c				exit.c					lexer.c \
-				op.c				arg_types.c 			utils.c \
-				label.c				lexer_asm_1.c			lexer_asm_2.c \
-				lexer_header_1.c	lexer_header_2.c		generator.c	\
-				generator_header.c	write_octet.c			other.c	\
-				generator_body.c	lstlabel.c				write_param.c \
-				secure_h.c
+ASM_CFILES =	analyze_octet.c	fileout_cor.c	main.c		\
+				op.c			other.c			secure_h.c	\
+				write_decompiler.c
 
 ASM_SOURCES =	$(addprefix $(ASM_SRC_DIR), $(ASM_CFILES))
 

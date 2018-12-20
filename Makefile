@@ -19,9 +19,12 @@ ASM = ./asm
 
 COREWAR = ./corewar
 
+DECOMPILER = ./decompiler
+
 all : libft
 	@make -C ./src/asm/
 	@make -C ./src/corewar/
+	@make -C ./src/decompiler/
 
 libft :
 	@make -C ./lib/libft/
@@ -32,26 +35,35 @@ $(ASM) :
 $(COREWAR) :
 	@make -C ./src/corewar/
 
+$(DECOMPILER) :
+	@make -C ./src/decompiler/
+
 clean :
 	@make clean -C ./lib/libft/
 	@make clean -C ./src/asm/
 	@make clean -C ./src/corewar/
+	@make clean -C ./src/decompiler/
 
 fclean :
 	@make fclean -C ./lib/libft/
 	@make fclean -C ./src/asm/
 	@make fclean -C ./src/corewar/
+	@make fclean -C ./src/decompiler/
 
 re :
 	@make re -C ./lib/libft/
 	@make re -C ./src/asm/
 	@make re -C ./src/corewar/
+	@make re -C ./src/decompiler/
 
 debug_asm : libft
 	make debug -C ./src/asm/
 
 debug_corewar : libft
 	make debug -C ./src/corewar/
+
+debug_decompiler : libft
+	make debug -C ./src/decompiler/
 
 install :
 	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh

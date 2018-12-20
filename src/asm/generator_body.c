@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   generator_body.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: slatchma <slatchma@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: slatchma <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 18:22:53 by slatchma     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 19:10:52 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/30 16:08:27 by slatchma    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -105,6 +105,7 @@ void			ft_generator_body(int fdin, int fdout, t_ggeneral *report)
 		ft_savetext(&savetext, line);
 		ft_strdel(&line);
 	}
+	ft_strdel(&line);
 	tabtext = ft_strsplitwhitespace(savetext, SEPARATOR_CHAR);
 	lstlabel = ft_write_body(fdout, tabtext, report, lstlabel);
 	ft_write_adress(fdout, lstlabel);

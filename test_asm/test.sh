@@ -60,5 +60,7 @@ do
 		echo "$(valgrind --leak-check=full --track-origins=yes ./my_asm/asm ./champions/$elem.s;)"
 	printf "${normal}"
 	echo "------------------------------->\n\n"
+	echo "$(rm ./champions/$elem.cor;)"
+
 	sleep $secondes
 done

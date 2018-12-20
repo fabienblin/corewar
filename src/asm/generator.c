@@ -93,6 +93,7 @@ int			ft_generator(int fdin, char **argv)
 	ft_generator_body(fdin, fdout, &report);
 	ft_size(fdout, report);
 	close(fdout);
+	ft_printf("writing output program to %s\n", nameout);
 	ft_strdel(&nameout);
 	return (0);
 }

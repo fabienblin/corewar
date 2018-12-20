@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   write_param.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: slatchma <slatchma@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: slatchma <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/30 12:50:09 by slatchma     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/13 19:04:52 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/30 12:50:58 by slatchma    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,8 @@ t_labelg	*ft_write_label(t_labelg *lstlabel, char *text, t_ggeneral *report)
 	return (lstlabel);
 }
 
-int			ft_write_opcode(int fdout, char **tabtext, int i, t_ggeneral *rep)
+int			ft_write_opcode(int fdout, char **tabtext, int i,
+			t_ggeneral *report)
 {
 	int		j;
 	t_op	*op;
@@ -31,12 +32,12 @@ int			ft_write_opcode(int fdout, char **tabtext, int i, t_ggeneral *rep)
 	{
 		if (ft_strcmp(tabtext[i], op[j].op) == 0)
 		{
-			rep->placeopcode = rep->compt;
-			ft_octet_one(fdout, op[j].bin, &rep->compt);
+			report->placeopcode = report->compt;
+			ft_octet_one(fdout, op[j].bin, &report->compt);
 			if (op[j].octet_param == 1)
 				ft_octet_one(fdout, ft_octet_param(tabtext, i + 1,
-				op[j].nb_arg), &rep->compt);
-			rep->tmp = op[j].dir_size;
+				op[j].nb_arg), &report->compt);
+			report->tmp = op[j].dir_size;
 			return (op[j].nb_arg);
 		}
 		j++;

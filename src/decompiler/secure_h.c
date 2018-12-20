@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   secure_h.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
+/*   By: slatchma <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/09 12:01:55 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/19 23:35:35 by slatchma    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/12/19 23:36:12 by slatchma     #+#   ##    ##    #+#       */
+/*   Updated: 2018/12/19 23:36:18 by slatchma    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "decompiler.h"
 
-int	main(int argc, char **argv)
+int	ft_secure_h(void)
 {
-	int	fd;
-
-	(void)argc;
-	(void)argv;
-	ft_secure_h();
-	if (argc != 2)
-		ft_exit_asm(USAGE);
-	if ((fd = open(argv[1], O_RDONLY)) < 0 || errno)
+	if (IND_SIZE != 2 || REG_SIZE != 4 || DIR_SIZE != REG_SIZE || REG_CODE != 1
+		|| DIR_CODE != 2 || IND_CODE != 3 || T_REG != 1 || T_DIR != 2
+		|| T_IND != 4 || T_LAB != 8)
 	{
-		ft_exit_asm(strerror(errno));
-		close(fd);
+		ft_printf("Error value in .h\n");
+		exit(-1);
 	}
-	lexer(fd);
-	ft_generator(fd, argv);
-	close(fd);
-	ft_exit_asm(NULL);
 	return (0);
 }
