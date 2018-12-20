@@ -43,12 +43,14 @@ int		multiline_header_comment(int fd, char **first_quot,
 	char **last_quot, char **line)
 {
 	char	*name;
+	int 	result;
 
 	name = NULL;
+	result = 0;
 	*last_quot = NULL;
 	name = ft_strdup(*first_quot);
 	ft_strdel(line);
-	while (get_next_line(fd, line) > 0 && !*last_quot)
+	while ((result = get_next_line(fd, line)) > 0 && !*last_quot)
 	{
 		*last_quot = ft_strrchr(*line, '"');
 		name = ft_strjoinfree(name, *line);
@@ -56,10 +58,10 @@ int		multiline_header_comment(int fd, char **first_quot,
 	ft_strdel(line);
 	*first_quot = ft_strchr(name, '"');
 	*last_quot = ft_strrchr(name, '"');
-	if (*last_quot - *first_quot > COMMENT_LENGTH)
+	if (*last_quot - *first_quot > COMMENT_LENGTH || result == 0)
 	{
 		ft_strdel(&name);
-		ft_exit_asm("Header comment is to long.\n");
+		ft_exit_asm("Header comment is to long.");
 	}
 	ft_strdel(&name);
 	return (1);
