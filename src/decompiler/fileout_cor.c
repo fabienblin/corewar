@@ -44,7 +44,8 @@ static void	ft_decompiler_header(int fdin, int fdout)
 	char c;
 
 	c = 1;
-	write(fdout, ".name\t\t\"", 8);
+	write(fdout, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING));
+	write(fdout, "\t\t\"", 3);
 	lseek(fdin, 4, SEEK_SET);
 	while (c != 0)
 	{
@@ -52,7 +53,9 @@ static void	ft_decompiler_header(int fdin, int fdout)
 		if (c != 0)
 			write(fdout, &c, 1);
 	}
-	write(fdout, "\"\n.comment\t\"", 12);
+	write(fdout, "\"\n", 2);
+	write(fdout, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING));
+	write(fdout, "\t\"", 2);
 	lseek(fdin, (PROG_NAME_LENGTH + 12), SEEK_SET);
 	c = 1;
 	while (c != 0)
