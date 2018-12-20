@@ -7,7 +7,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 18:55:30 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/24 12:31:53 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/19 18:42:43 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@
 							GRID
 					</div>
 				</div>
-				<div class="col-sm-3">
+				<div id="stats" class="col-sm-3">
 					<div class="cadre">
 						STATS
 					</div>
@@ -56,7 +56,7 @@
 			var socket = io();
 			
 			socket.on("turn", (msg) => {
-				$('#grid>.cadre').text(msg);
+				$('#grid>.cadre').html(msg);
 			})
 		</script>
     </body>

@@ -3,22 +3,20 @@
 /*                                                              /             */
 /*   exit.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
+/*   By: vsteyaer <vsteyaer@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/11 11:57:11 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/11 13:59:40 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/30 15:54:35 by vsteyaer     #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/30 15:54:35 by vsteyaer    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	ft_exit_corewar(char *msg)
+int			my_exit(t_free **lst_free, char *file, char *func, int line)
 {
-	if (!msg)
-	{
-		return ;
-	}
-	//free corewar
-	ft_exit(msg);
+	ft_printf("ERROR :\n\tFILE\t : %s\n\tFUNCTION : %s\n\tLINE\t : (%d)\n",
+		file, func, line);
+	my_auto_free(lst_free);
+	return (EXIT_FAILURE);
 }
