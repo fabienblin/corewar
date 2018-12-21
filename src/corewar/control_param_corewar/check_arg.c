@@ -34,7 +34,7 @@ static void		ft_check_champ(t_var *data, char **av, long len, int n)
 	}
 	if (((av[n][len - 1]) + (av[n][len - 2] << 8) + (av[n][len - 3]
 			<< 16) + (av[n][len - 4] << 24) & 0xFFFFFFFF) == DOT_COR)
-		ft_read_dot_cor(av[n], player_nbr, data, data->pos_player);
+		ft_read_dot_cor(data, av[n], player_nbr, data->pos_player);
 	else
 		exit(my_exit(&data->lst_free, __FILE__, (char *)__func__, __LINE__));
 	player_nbr++;
@@ -45,7 +45,7 @@ static void		ft_check_verbose(t_var *data, char **av, int n)
 	if (data->v > 0)
 		exit(my_exit(&data->lst_free, __FILE__, (char *)__func__, __LINE__));
 	data->v = ft_atoi(av[n]);
-	if (data->v == 4 || data->v == 6)
+	if (data->v == 2 || data->v == 4 || data->v == 6)
 		n += 1;
 	else
 		exit(my_exit(&data->lst_free, __FILE__, (char *)__func__, __LINE__));
@@ -76,7 +76,7 @@ void			ft_check_arg(int ac, char **av, t_var *data)
 	dump = 0;
 	while (n < ac)
 	{
-		if (!ft_strcmp(av[n], "-dump"))
+		if (!ft_strcmp(av[n], "-dump") && av[n + 1])
 			ft_check_dump(++n, av, &dump, data);
 		else if (!ft_strcmp(av[n], "-v") && av[n + 1])
 			ft_check_verbose(data, av, ++n);

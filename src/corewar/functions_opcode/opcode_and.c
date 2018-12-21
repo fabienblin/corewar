@@ -3,35 +3,44 @@
 /*                                                              /             */
 /*   opcode_and.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fpupier <fpupier@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: fpupier <fpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/06 20:13:51 by fpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/17 18:45:32 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/06 20:13:51 by fpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int		check_and(t_var *data, unsigned int pc)
+static int		check_and(t_var *data, unsigned int pc, int dir_oct)
 {
-	unsigned char	p_1;
-	unsigned char	p_2;
-	unsigned char	p_3;
-	unsigned char	p_4;
+	unsigned char	p[3];
+	size_t 			i;
 
-	p_1 = data->vm[pc + 1] >> 6;
-	p_2 = (unsigned char)(0x3 & (data->vm[pc + 1] >> 4));
-	p_3 = (unsigned char)(0x3 & (data->vm[pc + 1] >> 2));
-	p_4 = (unsigned char)(0x3 & data->vm[pc + 1]);
-	if (!(p_1 & 0x3) || !(p_2 & 0x3) || !(p_3 & REG_CODE) || p_4)
+	i = 0;
+	p[0] = data->vm[((pc + 1) % MEM_SIZE)] >> 6;
+	p[1] = (unsigned char)(0x3 & (data->vm[((pc + 1) % MEM_SIZE)] >> 4));
+	p[2] = (unsigned char)(0x3 & (data->vm[((pc + 1) % MEM_SIZE)] >> 2));
+	data->op_size += 1;
+	while (i < 3)
+	{
+		if (p[i] == REG_CODE)
+			data->op_size += 1;
+		else if (p[i] == DIR_CODE)
+			dir_oct == 2 ? (data->op_size += 2) : (data->op_size += 4);
+		else if (p[i] == IND_CODE)
+			data->op_size += 2;
+		i++;
+	}
+	if (!(p[0] & 0x3) || !(p[1] & 0x3) || (p[2] != REG_CODE))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
 int				opcode_and(t_var *data, t_process *p_process)
 {
-	if (!check_and(data, p_process->pc) && !ft_params_opcode(data, p_process, 4, 1))
+	if (!check_and(data, p_process->pc, 4) && !ft_params_opcode(data, p_process, 4, 1))
 	{
 		if (data->v == 4 || data->v == 6)
 			ft_printf("P %4i | and %i %i r%i\n", p_process->id,

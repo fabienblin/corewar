@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   stop_corewar.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fpupier <fpupier@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: fpupier <fpupier@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/21 09:11:18 by fpupier      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/17 18:47:02 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/21 09:11:18 by fpupier     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,19 +15,19 @@
 
 int				stop_corewar(t_var *data)
 {
-	size_t			i;
-	unsigned long	nb_proces;
+	unsigned long	nb_process;
+	t_process	*p_process;
 
-	i = 0;
-	nb_proces = 0;
-	while (i < data->nb_champion)
+	nb_process = 0;
+	p_process = data->lst_process;
+	while (p_process)
 	{
-		if (data->tab_champion[i].lst_process)
-			nb_proces++;
-		i++;
+		if (data->lst_process)
+			nb_process++;
+		p_process = p_process->next;
 	}
 	//ft_printf("cycle_delta = %i || check_cycle_delta = %i\n", CYCLE_DELTA, data->check_cycle_delta);
-	if (nb_proces == 0)
+	if (nb_process == 0 || (long)data->check_cycle_delta < 0)
 		data->stop_corewar = 1;
 	return (EXIT_SUCCESS);
 }

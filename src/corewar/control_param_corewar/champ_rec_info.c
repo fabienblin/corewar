@@ -13,7 +13,7 @@
 
 #include "corewar.h"
 
-static void		ft_read_str_champ(int fd, long player_nbr, t_var *data, int pos)
+static void		ft_read_str_champ(t_var *data, int fd, long player_nbr, int pos)
 {
 	unsigned char		*str;
 	ssize_t				ret;
@@ -37,7 +37,7 @@ static size_t	ft_mem_padding(unsigned int length, unsigned int base)
 	return ((res = length % base) ? (base - res) : 0);
 }
 
-static void		ft_r_and_s_magic_name(int fd, t_var *data, int pos)
+static void		ft_r_and_s_magic_name(t_var *data, int fd, int pos)
 {
 	unsigned char		magic[4 + 1];
 	char				p_name[PROG_NAME_LENGTH + 1];
@@ -53,7 +53,7 @@ static void		ft_r_and_s_magic_name(int fd, t_var *data, int pos)
 		+ data->padding);
 }
 
-void			ft_read_dot_cor(char *av, long player_nbr, t_var *data, int pos)
+void			ft_read_dot_cor(t_var *data, char *av, long player_nbr, int pos)
 {
 	int					fd;
 	unsigned char		p_size[4 + 1];
@@ -61,7 +61,7 @@ void			ft_read_dot_cor(char *av, long player_nbr, t_var *data, int pos)
 
 	if ((fd = open(av, O_RDWR)) < 0)
 		exit(my_exit(&data->lst_free, __FILE__, (char *)__func__, __LINE__));
-	ft_r_and_s_magic_name(fd, data, pos);
+	ft_r_and_s_magic_name(data, fd, pos);
 	read(fd, p_size, SIZE_INT);
 	if (ft_limits((char *)p_size, UNSIGNED, INT_MAX))
 		exit(my_exit(&data->lst_free, __FILE__, (char *)__func__, __LINE__));
@@ -72,7 +72,7 @@ void			ft_read_dot_cor(char *av, long player_nbr, t_var *data, int pos)
 	read(fd, comm, COMMENT_LENGTH + data->padding);
 	ft_memcpy(data->tab_champion[pos].header.comment, comm, COMMENT_LENGTH
 		+ data->padding);
-	ft_read_str_champ(fd, player_nbr, data, pos);
+	ft_read_str_champ(data, fd, player_nbr, pos);
 }
 
 void			ft_control_player(t_var *data, long player_nbr)

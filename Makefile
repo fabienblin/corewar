@@ -6,14 +6,14 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/12/14 17:52:22 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/17 16:42:35 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/21 17:10:15 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
 
-FLAGS =		-Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
-INC_DIR =	./inc/
+INC_DIR = ./inc/
 
 ASM = ./asm
 
@@ -66,7 +66,6 @@ debug_decompiler : libft
 	make debug -C ./src/decompiler/
 
 install :
-	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
 	brew install npm
 	brew install soket.io
 

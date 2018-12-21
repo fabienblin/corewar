@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 12:02:53 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/20 13:11:00 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/21 17:31:31 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,32 +42,22 @@ typedef struct			s_process
 	struct s_process	*next;
 	int					flag;
 	unsigned long		id;
+	unsigned char		mem_op_code;
 }						t_process;
 
 typedef struct			s_champion
 {
-	int					nbr;
+	unsigned int		nbr;
 	unsigned long		nb_live;
 	unsigned int		num_proc;
 	unsigned int		size;
 	t_process			*lst_process;
 	t_header			header;
 }						t_champion;
-/*
-typedef struct			s_op
-{
-	char				*name;
-	int					val_1;
-	int					param[3];
-	int					val_2;
-	unsigned long		cycle;
-	char				*comment;
-	int					val_4;
-	int					val_5;
-}						t_op;
-*/
+
 typedef struct			s_var
 {
+	t_process			*lst_process;
 	unsigned char		*vm;
 	t_champion			tab_champion[MAX_PLAYERS];
 	unsigned long		cycle;
@@ -103,7 +93,7 @@ int		    		    print_dump(t_var *data);
 void					ft_count_nbr_champs(int ac, char **av, t_var *data);
 void					ft_check_arg(int ac, char **av, t_var *data);
 void					ft_control_player(t_var *data, long player_nbr);
-void					ft_read_dot_cor(char *av, long player_nbr, t_var *data,
+void					ft_read_dot_cor(t_var *data, char *av, long player_nbr,
 							int pos);
 void					*my_memalloc(t_free **lst_free, size_t size);
 void					my_free(t_free **lst_free, size_t address);
@@ -111,17 +101,17 @@ void					my_auto_free(t_free **lst_free);
 int						my_exit(t_free **lst_free, char *file, char *func,
 							int line);
 
-int						tab_opcode(t_var *data, t_process *p_process, int i);
+int						tab_opcode(t_var *data, t_process *p_process);
 
 int						opcode_add(t_var *data, t_process *p_process);
 int						opcode_aff(t_var *data, t_process *p_process);
 int						opcode_and(t_var *data, t_process *p_process);
-int						opcode_fork(t_var *data, t_process *p_process, int i);
+int						opcode_fork(t_var *data, t_process *p_process);
 int						opcode_ld(t_var *data, t_process *p_process);
 int						opcode_ldi(t_var *data, t_process *p_process);
 int						opcode_lld(t_var *data, t_process *p_process);
 int						opcode_lldi(t_var *data, t_process *p_process);
-int						opcode_lfork(t_var *data, t_process *p_process, int i);
+int						opcode_lfork(t_var *data, t_process *p_process);
 int						opcode_live(t_var *data, t_process *p_process);
 int						opcode_or(t_var *data, t_process *p_process);
 int						opcode_st(t_var *data, t_process *p_process);
@@ -131,7 +121,7 @@ int						opcode_xor(t_var *data, t_process *p_process);
 int						opcode_zjmp(t_var *data, t_process *p_process);
 
 int						t_process_create(t_var *data, t_process *p_process,
-							int i, int idx);
+							int idx);
 
 int         			ft_params_opcode(t_var *data, t_process *pc,
 							int dir_oct, int idx);

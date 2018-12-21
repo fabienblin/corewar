@@ -6,7 +6,7 @@
 /*   By: vsteyaer <vsteyaer@student.42.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 14:08:16 by vsteyaer     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/17 18:28:35 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/21 17:34:57 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,7 @@ static void		ft_init_data_corewar_2(t_var *data)
 static void		ft_init_data_corewar(t_var *data)
 {
 	data->vm = NULL;
-	data->cycle = 0;
+	data->cycle = 1;
 	data->check_cycle = 0;
 	data->check_cycle_delta = 0;
 	data->check_max_check = 0;
@@ -73,9 +73,12 @@ static void		ft_print_usage(void)
 {
 	ft_printf("Usage : ./corewar [-dump nbr_cycles -n number <champion1.cor>");
 	ft_printf("-n number <champion2.cor>... -v]\n");
-	ft_printf("\t-dump\t: Dumps memory after N cycles then exits\n");
-	ft_printf("\t-n\t: Champion number\n");
-	ft_printf("\t-v\t: Output mode\n");
+	ft_printf("\t-dump N\t: Dumps memory after N cycles then exits\n");
+	ft_printf("\t-n N\t: Champion number\n");
+	ft_printf(
+		"\t-v N\t: Verbosity levels, can be added together to enable several\n");
+	ft_printf("\t\t- 2\t: Show cycles\n");
+	ft_printf("\t\t- 4\t: Show operations (Params are NOT litteral ...)\n");
 	exit(EXIT_SUCCESS);
 }
 
