@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/12 12:29:42 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/14 14:54:35 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/20 13:06:33 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,7 +43,7 @@ int		multiline_header_comment(int fd, char **first_quot,
 	char **last_quot, char **line)
 {
 	char	*name;
-	int 	result;
+	int		result;
 
 	name = NULL;
 	result = 0;

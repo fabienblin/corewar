@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:15:54 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/14 16:02:36 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/20 13:21:37 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,9 @@ int		check_label_declarations(t_list *labels)
 		}
 		labels = labels->next;
 	}
-	return (errors);
+	if (errors)
+		ft_exit_asm(NULL);
+	return (1);
 }
 
 void	lexer(int fd)

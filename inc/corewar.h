@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 12:02:53 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/17 18:25:26 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/20 13:11:00 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -135,8 +135,12 @@ int						t_process_create(t_var *data, t_process *p_process,
 
 int         			ft_params_opcode(t_var *data, t_process *pc,
 							int dir_oct, int idx);
-/* DEBUG START */
+/*
+**DEBUG START
+*/
 void		print_t_params(t_var *data);
-/*  DEBUG END  */
+/*
+**DEBUG END
+*/
 
 #endif

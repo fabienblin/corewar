@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/11 12:01:14 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/14 16:27:35 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/20 13:09:57 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,33 +63,45 @@ void				ft_exit_asm(char *msg);
 t_op				*get_op_tab(void);
 void				freesplit(char ***split);
 
-//arg_types.c
+/*
+**arg_types.c
+*/
 int					is_label_str(char *str);
 int					is_t_reg(char *str, int op_arg);
 int					is_t_dir(char *str, int op_arg);
 int					is_t_ind(char *str, int op_arg);
 int					is_t_lab(char *str, int op_arg);
 
-//utils.c
+/*
+**utils.c
+*/
 void				trim_whitespace(char **str);
 t_op				*get_op(char *opcode);
 int					count_split(char **split);
 
-//label.c
+/*
+**label.c
+*/
 t_label				*new_label(char *name, int is_declared, int is_used);
 void				del_label(void *label, size_t size);
 
-//lexer_asm_1.c & lexer_asm_2.c
+/*
+**lexer_asm_1.c & lexer_asm_2.c
+*/
 int					check_line(char *line, t_list **labels);
 void				remove_comment(char **line);
 int					valid_args(char *line, t_op *op, t_list **labels);
 char				*get_op_on_line(char *line, t_list **labels, char **split);
 
-//lexer_header_1/2.c
+/*
+**lexer_header_1/2.c
+*/
 int					check_header(int fd);
 void				skip_empty_lines(int fd, char **line);
 
-//generator
+/*
+**generator
+*/
 int					ft_generator(int fdin, char **argv);
 void				ft_generator_header(int fd, int fdout, t_ggeneral *report);
 void				ft_octet_one(int fdout, int nbre, int *compt);

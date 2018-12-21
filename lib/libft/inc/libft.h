@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/28 17:35:42 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/17 16:29:54 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/20 13:17:53 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,6 +64,7 @@ int				ft_isascii(int c);
 int				ft_isprint(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
+
 /*
 **SECOND PART
 */
@@ -138,6 +139,7 @@ void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+
 /*
 **FABLIN
 */
@@ -164,6 +166,7 @@ int				ft_lstlen(t_list *sons);
 void			bresenham(t_grid *grid, t_seg *seg, int val);
 int				ft_iswhitespace(char c);
 char			**ft_strsplit_whitespace(char const *s);
+
 /*
 **SLATCHMA
 */
@@ -171,49 +174,49 @@ int				ft_isnumber(char *str);
 int				ft_countchar(char *str, char c);
 int				ft_strsupchr(const char *s, int c);
 char			**ft_strsplitwhitespace(char const *s, char c);
-void 			ft_free_strsplit(char ***split);
+void			ft_free_strsplit(char ***split);
+
 /*
 **FPUPIER
 */
-t_list				*ft_lstsplit(char const *s, char c);
-int					ft_strisalpha(const char *s);
-int					ft_strisdigit(const char *s);
-int					ft_strisdigit_pos_neg(const char *s);
-int					ft_strisalnum(const char *s);
-int					ft_strisascii(const char *s);
-int					ft_strisprint(const char *s);
-int					ft_strisspace(const char *s);
-int					ft_strisupper(const char *s);
-int					ft_strislower(const char *s);
-int					ft_strisxdigit(const char *s);
-int					ft_isspace(int c);
-int					ft_isupper(int c);
-int					ft_islower(int c);
-int					ft_isblank(int c);
-int					ft_iscntrl(int c);
-int					ft_isgraph(int c);
-int					ft_isxdigit(int c);
-void				ft_lstfree(t_list *lst);
-t_list				*ft_lstndup(const t_list *lst, size_t n);
-t_list				*ft_lstcat(t_list *lst_dst, t_list *lst_src);
-t_list				*ft_lstncat(t_list *lst_dst, t_list *lst_src, size_t n);
-int					ft_lstisalpha(const t_list *list);
-int					ft_lstisdigit(const t_list *list);
-int					ft_lstisalnum(const t_list *list);
-int					ft_digitlenneg(long long n);
-int					ft_digitlen(long long n);
-int					ft_limits(char *str, int sign, long long limit);
-size_t				ft_wcharlen(wchar_t c);
-wchar_t				*ft_wstrcat(wchar_t *ws1, wchar_t *ws2);
-wchar_t				*ft_wstrcpy(wchar_t *wdst, wchar_t *wsrc);
-size_t				ft_wstrlen(wchar_t *wstr);
-wchar_t				*ft_wstrnew(size_t size);
-int					ft_putwchar(wchar_t wc);
-void				ft_putwstr(wchar_t *str);
-char				*ft_savetext(char **savetext, char *line);
-char				*ft_revstr(char *str);
-char				*ft_revnstr(char *str, int oct);
-void				*ft_memcat(void *dst, size_t start, const void *src,
-					size_t len_src);
-
+t_list			*ft_lstsplit(char const *s, char c);
+int				ft_strisalpha(const char *s);
+int				ft_strisdigit(const char *s);
+int				ft_strisdigit_pos_neg(const char *s);
+int				ft_strisalnum(const char *s);
+int				ft_strisascii(const char *s);
+int				ft_strisprint(const char *s);
+int				ft_strisspace(const char *s);
+int				ft_strisupper(const char *s);
+int				ft_strislower(const char *s);
+int				ft_strisxdigit(const char *s);
+int				ft_isspace(int c);
+int				ft_isupper(int c);
+int				ft_islower(int c);
+int				ft_isblank(int c);
+int				ft_iscntrl(int c);
+int				ft_isgraph(int c);
+int				ft_isxdigit(int c);
+void			ft_lstfree(t_list *lst);
+t_list			*ft_lstndup(const t_list *lst, size_t n);
+t_list			*ft_lstcat(t_list *lst_dst, t_list *lst_src);
+t_list			*ft_lstncat(t_list *lst_dst, t_list *lst_src, size_t n);
+int				ft_lstisalpha(const t_list *list);
+int				ft_lstisdigit(const t_list *list);
+int				ft_lstisalnum(const t_list *list);
+int				ft_digitlenneg(long long n);
+int				ft_digitlen(long long n);
+int				ft_limits(char *str, int sign, long long limit);
+size_t			ft_wcharlen(wchar_t c);
+wchar_t			*ft_wstrcat(wchar_t *ws1, wchar_t *ws2);
+wchar_t			*ft_wstrcpy(wchar_t *wdst, wchar_t *wsrc);
+size_t			ft_wstrlen(wchar_t *wstr);
+wchar_t			*ft_wstrnew(size_t size);
+int				ft_putwchar(wchar_t wc);
+void			ft_putwstr(wchar_t *str);
+char			*ft_savetext(char **savetext, char *line);
+char			*ft_revstr(char *str);
+char			*ft_revnstr(char *str, int oct);
+void			*ft_memcat(void *dst, size_t start, const void *src,
+				size_t len_src);
 #endif
