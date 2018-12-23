@@ -6,7 +6,7 @@
 #   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     #
 #                                                 #+#   #+    #+    #+#      #
 #   Created: 2018/10/08 18:51:13 by fablin       #+#   ##    ##    #+#       #
-#   Updated: 2018/12/21 17:47:59 by fablin      ###    #+. /#+    ###.fr     #
+#   Updated: 2018/12/22 16:35:19 by fablin      ###    #+. /#+    ###.fr     #
 #                                                         /                  #
 #                                                        /                   #
 # ************************************************************************** #
@@ -112,7 +112,18 @@ $(SRC_FUNCTIONS_PROCESS_LIVE) \
 $(SRC_MAIN) \
 $(SRC_PRINT)
 
-COREWAR_SOURCES = $(addprefix $(COREWAR_SRC_DIR), $(COREWAR_CFILES))
+COREWAR_SOURCES = \
+$(addprefix $(DIR_CREATE_CHAMPION), $(SRC_CREATE_CHAMPION)) \
+$(addprefix $(DIR_EXIT), $(SRC_EXIT)) \
+$(addprefix $(DIR_FUNCTIONS_OPCODE), $(SRC_FUNCTIONS_OPCODE)) \
+$(addprefix $(DIR_FUNCTIONS_VM), $(SRC_FUNCTIONS_VM)) \
+$(addprefix $(DIR_MY_FREE), $(SRC_MY_FREE)) \
+$(addprefix $(DIR_CONTROL_PARAM_COREWAR), $(SRC_CONTROL_PARAM_COREWAR)) \
+$(addprefix $(DIR_DEBUG_PRINT), $(SRC_DEBUG_PRINT)) \
+$(addprefix $(DIR_FUNCTIONS_CYCLE_MANAGEMENT), $(SRC_FUNCTIONS_CYCLE_MANAGEMENT)) \
+$(addprefix $(DIR_FUNCTIONS_PROCESS_LIVE), $(SRC_FUNCTIONS_PROCESS_LIVE)) \
+$(addprefix $(DIR_MAIN), $(SRC_MAIN)) \
+$(addprefix $(DIR_PRINT), $(SRC_PRINT)) \
 
 COREWAR_OFILES = $(COREWAR_CFILES:.c=.o)
 
@@ -179,6 +190,6 @@ re :
 
 debug :
 	gcc -ggdb $(COREWAR_SOURCES) ../../lib/libft/libft.a -I ../../lib/libft/inc -I $(INC_DIR) -o corewar_debug
-	lldb ./corewar_debug ../../test.s
+	lldb ./corewar_debug ../../test.cor
 
 .PHONY: all clean fclean re obj
