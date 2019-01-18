@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   corewar.h                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
+/*   By: vsteyaer <vsteyaer@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/09 12:02:53 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 17:31:31 by fablin      ###    #+. /#+    ###.fr     */
+/*   Created: 2018/12/06 14:39:03 by vsteyaer     #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/16 18:04:58 by vsteyaer    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,19 +47,19 @@ typedef struct			s_process
 
 typedef struct			s_champion
 {
-	unsigned int		nbr;
-	unsigned long		nb_live;
-	unsigned int		num_proc;
+	int					nbr;
+	long				n;
+	long				a_n;
 	unsigned int		size;
-	t_process			*lst_process;
 	t_header			header;
 }						t_champion;
 
 typedef struct			s_var
 {
-	t_process			*lst_process;
 	unsigned char		*vm;
 	t_champion			tab_champion[MAX_PLAYERS];
+	t_process			*lst_process;
+	t_free				*lst_free;
 	unsigned long		cycle;
 	unsigned long		check_cycle;
 	unsigned long		check_cycle_delta;
@@ -72,11 +72,12 @@ typedef struct			s_var
 	unsigned int		pos_player;
 	unsigned int		op_tab[17];
 	unsigned int		last_live;
-	t_free				*lst_free;
-	unsigned int		t_params[2][3];
-	unsigned int 		p_p;
+	int					t_params[2][3];
+	unsigned int		p_p;
 	unsigned int		op_size;
 	long				v;
+	long				n;
+	long				a_n;
 	unsigned int		id_proc;
 }						t_var;
 
@@ -89,7 +90,7 @@ int						cycle_to_die(t_var *data);
 int						stop_corewar(t_var *data);
 int						exec_program(t_var *data);
 
-int		    		    print_dump(t_var *data);
+int						print_dump(t_var *data);
 void					ft_count_nbr_champs(int ac, char **av, t_var *data);
 void					ft_check_arg(int ac, char **av, t_var *data);
 void					ft_control_player(t_var *data, long player_nbr);
@@ -123,14 +124,7 @@ int						opcode_zjmp(t_var *data, t_process *p_process);
 int						t_process_create(t_var *data, t_process *p_process,
 							int idx);
 
-int         			ft_params_opcode(t_var *data, t_process *pc,
+int						ft_params_opcode(t_var *data, t_process *pc,
 							int dir_oct, int idx);
-/*
-**DEBUG START
-*/
-void		print_t_params(t_var *data);
-/*
-**DEBUG END
-*/
 
 #endif

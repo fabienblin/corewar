@@ -35,6 +35,8 @@ FLAGS =		-Wall -Wextra -Werror
 
 INC_DIR =	../../inc/
 
+INC_ASM = $(INC_DIR)asm.h $(INC_DIR)op.h
+
 LIBFT = ../../lib/libft/libft.a
 
 all : $(ASM_OBJ_DIR) $(ASM)
@@ -42,7 +44,7 @@ all : $(ASM_OBJ_DIR) $(ASM)
 $(ASM) : $(ASM_OBJECTS) $(LIBFT)
 	gcc $(FLAGS) $(ASM_OBJECTS) -L ../../lib/libft/ -lft -o $(ASM)
 
-$(ASM_OBJ_DIR)%.o : $(ASM_SRC_DIR)%.c
+$(ASM_OBJ_DIR)%.o : $(ASM_SRC_DIR)%.c $(INC_ASM)
 	gcc $(FLAGS) -c $< -o $@ -I $(INC_DIR) -I ../../lib/libft/inc/
 
 $(ASM_OBJ_DIR) :

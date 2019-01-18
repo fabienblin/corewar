@@ -6,7 +6,7 @@
 /*   By: fablin <fablin@student.42.fr>              +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 15:28:42 by fablin       #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/14 16:17:06 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 14:51:52 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ void	remove_comment(char **line)
 	char	*comm;
 	char	*new_line;
 
-	if ((comm = ft_strchr(*line, '#')))
+	if ((comm = ft_strchr(*line, COMMENT_CHAR)))
 	{
 		if ((ft_strstr(*line, NAME_CMD_STRING) == *line ||
 			ft_strstr(*line, COMMENT_CMD_STRING) == *line) &&

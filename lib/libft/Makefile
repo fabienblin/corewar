@@ -21,6 +21,12 @@ INC_DIR =	./inc/
 
 NAME =		libft.a
 
+INC_PF = ./inc/ft_printf.h
+
+INC_GNL = ./inc/get_next_line.h
+
+INC_LIB = ./inc/libft.h
+
 FT_PRINTF =	ft_constuctors.c	ft_destructors.c	ft_parse.c	ft_printf.c	\
 			ft_format_setters.c	ft_itoa_type.c		ft_preci_tostring.c		\
 			ft_ptoa.c			ft_strgen.c			ft_puttostring.c		\
@@ -82,10 +88,10 @@ $(NAME) : $(OBJ_DIR) $(OBJECTS)
 	@ar -rcs $(NAME) $(OBJECTS)
 	@echo "===> LIBFT HAS BEEN COMPILED <==="
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c $(INC_GNL) $(INC_LIB)
 	gcc $(FLAGS) -c $< -o $@ -I $(INC_DIR)
 
-$(OBJ_DIR)%.o : $(PRINTF_DIR)%.c
+$(OBJ_DIR)%.o : $(PRINTF_DIR)%.c $(INC_PF)
 	gcc $(FLAGS) -c $< -o $@ -I $(INC_DIR)
 
 $(OBJ_DIR) :

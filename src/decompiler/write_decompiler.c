@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   write_decompiler.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: slatchma <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: slatchma <slatchma@student.42.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/08 22:18:18 by slatchma     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/08 22:18:44 by slatchma    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 15:07:11 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,15 +41,19 @@ static int	ft_neg_nbre(char type, int nbre)
 
 static int	ft_write_param_dec(int fdout, char type, int nbre)
 {
-	char *string_nbre;
+	char	*string_nbre;
+	char	reg_char[1];
+	char	dir_char[1];
 
+	reg_char[0] = REGISTER_CHAR;
+	dir_char[0] = DIRECT_CHAR;
 	string_nbre = NULL;
 	if (type == 0)
 		return (0);
 	if (type == 'R')
-		write(fdout, "r", 1);
+		write(fdout, reg_char, 1);
 	if (type == 'D' || type == 'd')
-		write(fdout, "%", 1);
+		write(fdout, dir_char, 1);
 	if (nbre == -2147483648)
 	{
 		write(fdout, "-2147483648", 11);
@@ -75,9 +79,12 @@ void		ft_write_dec_body(int fdout, t_analyze myoctet)
 {
 	int		i;
 	t_op	*op;
+	char	separator[2];
 
 	i = 0;
 	op = get_op_tab();
+	separator[0] = SEPARATOR_CHAR;
+	separator[1] = ' ';
 	while (i < 16)
 	{
 		if (op[i].bin == myoctet.opcode)
@@ -87,12 +94,12 @@ void		ft_write_dec_body(int fdout, t_analyze myoctet)
 	ft_write_param_dec(fdout, myoctet.param1_type, myoctet.param1_nbre);
 	if (myoctet.param2_type != 0)
 	{
-		write(fdout, ", ", 2);
+		write(fdout, separator, 2);
 		ft_write_param_dec(fdout, myoctet.param2_type, myoctet.param2_nbre);
 	}
 	if (myoctet.param3_type != 0)
 	{
-		write(fdout, ", ", 2);
+		write(fdout, separator, 2);
 		ft_write_param_dec(fdout, myoctet.param3_type, myoctet.param3_nbre);
 	}
 }

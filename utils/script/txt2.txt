@@ -1,4 +1,0 @@
-ERROR :
-	FILE	 : control_param_corewar/champ_rec_info.c
-	FUNCTION : ft_read_dot_cor
-	LINE	 : (63)

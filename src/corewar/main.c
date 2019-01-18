@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vsteyaer <vsteyaer@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: vsteyaer <vsteyaer@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 14:08:16 by vsteyaer     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 17:34:57 by fablin      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 18:06:05 by vsteyaer    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,13 +15,20 @@
 
 static void		ft_print_intro_vm(t_var *data)
 {
-	unsigned int 	i;
+	unsigned int	i;
+	long			n;
 
 	i = 1;
 	ft_printf("Introducing contestants...\n");
 	while (i <= data->nb_champion)
 	{
-		ft_printf("* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n", i,
+		if (!data->tab_champion[data->nb_champion - i].n
+			&& !data->tab_champion[data->nb_champion - i].a_n)
+			n = ~data->tab_champion[data->nb_champion - i].nbr + 1;
+		else
+			n = ~data->tab_champion[data->nb_champion - i].nbr;
+		ft_printf("* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",
+			n,
 			data->tab_champion[data->nb_champion - i].size,
 			data->tab_champion[data->nb_champion - i].header.prog_name,
 			data->tab_champion[data->nb_champion - i].header.comment);
@@ -65,6 +72,7 @@ static void		ft_init_data_corewar(t_var *data)
 	data->p_p = 0;
 	data->v = 0;
 	data->id_proc = 0;
+	data->a_n = 0;
 	ft_bzero(data->tab_champion, sizeof(t_champion) * MAX_PLAYERS);
 	ft_init_data_corewar_2(data);
 }
@@ -76,7 +84,8 @@ static void		ft_print_usage(void)
 	ft_printf("\t-dump N\t: Dumps memory after N cycles then exits\n");
 	ft_printf("\t-n N\t: Champion number\n");
 	ft_printf(
-		"\t-v N\t: Verbosity levels, can be added together to enable several\n");
+		"\t-v N\t: Verbosity levels, can be added together to enable several"
+		"\n");
 	ft_printf("\t\t- 2\t: Show cycles\n");
 	ft_printf("\t\t- 4\t: Show operations (Params are NOT litteral ...)\n");
 	exit(EXIT_SUCCESS);

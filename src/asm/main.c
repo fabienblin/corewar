@@ -13,7 +13,19 @@
 
 #include "asm.h"
 
-int	main(int argc, char **argv)
+void	secure_file(char *file)
+{
+	int len;
+
+	len = ft_strlen(file);
+	if (len < 2 || file[len - 1] != 's' || file[len - 2] != '.')
+	{
+		ft_printf("Not file.s\n");
+		exit(1);
+	}
+}
+
+int		main(int argc, char **argv)
 {
 	int	fd;
 
@@ -22,6 +34,7 @@ int	main(int argc, char **argv)
 	ft_secure_h();
 	if (argc != 2)
 		ft_exit_asm(USAGE);
+	secure_file(argv[1]);
 	if ((fd = open(argv[1], O_RDONLY)) < 0 || errno)
 	{
 		ft_exit_asm(strerror(errno));

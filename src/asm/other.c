@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   other.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: slatchma <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: slatchma <slatchma@student.42.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/30 12:46:36 by slatchma     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/30 16:13:32 by slatchma    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 14:52:44 by fablin      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,7 +60,7 @@ int			ft_octet_param(char **tabtext, int i, int nb_arg)
 	ft_init_octet_param(octet_param);
 	while (i < l)
 	{
-		if (tabtext[i][0] == 'r')
+		if (tabtext[i][0] == REGISTER_CHAR)
 			ft_write_octet_param(octet_param, k, 0, 1);
 		else if (tabtext[i][0] == DIRECT_CHAR)
 			ft_write_octet_param(octet_param, k, 1, 0);
@@ -75,22 +75,9 @@ int			ft_octet_param(char **tabtext, int i, int nb_arg)
 void		ft_delete_comment(char *line)
 {
 	int i;
-	int tab[2];
 
-	i = -1;
-	tab[0] = ft_strsupchr(line, COMMENT_CHAR);
-	tab[1] = ft_strsupchr(line, ';');
-	if (tab[0] > tab[1])
-	{
-		i = tab[0];
-		tab[0] = tab[1];
-		tab[1] = i;
-	}
-	if (tab[0] >= 0)
-		i = tab[0];
-	else
-		i = tab[1];
-	if (i > -1)
+	i = 0;
+	if ((i = ft_strsupchr(line, COMMENT_CHAR)) != -1)
 	{
 		while (line[i] != '\0')
 		{

@@ -47,11 +47,11 @@ int			ft_write_opcode(int fdout, char **tabtext, int i,
 
 void		ft_write_registre(int fdout, char *text, t_ggeneral *report)
 {
-	if (text[0] == 'r')
+	if (text[0] == REGISTER_CHAR)
 	{
 		text[0] = ' ';
 		ft_octet_one(fdout, ft_atoi(text), &report->compt);
-		text[0] = 'r';
+		text[0] = REGISTER_CHAR;
 	}
 }
 

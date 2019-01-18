@@ -28,6 +28,7 @@ all : libft
 
 libft :
 	@make -C ./lib/libft/
+	@make -C ./lib/libft_vm/
 
 $(ASM) :
 	@make -C ./src/asm/
@@ -40,18 +41,21 @@ $(DECOMPILER) :
 
 clean :
 	@make clean -C ./lib/libft/
+	@make clean -C ./lib/libft_vm/
 	@make clean -C ./src/asm/
 	@make clean -C ./src/corewar/
 	@make clean -C ./src/decompiler/
 
 fclean :
 	@make fclean -C ./lib/libft/
+	@make fclean -C ./lib/libft_vm/
 	@make fclean -C ./src/asm/
 	@make fclean -C ./src/corewar/
 	@make fclean -C ./src/decompiler/
 
 re :
 	@make re -C ./lib/libft/
+	@make re -C ./lib/libft_vm/
 	@make re -C ./src/asm/
 	@make re -C ./src/corewar/
 	@make re -C ./src/decompiler/
@@ -64,12 +68,5 @@ debug_corewar : libft
 
 debug_decompiler : libft
 	make debug -C ./src/decompiler/
-
-install :
-	brew install npm
-	brew install soket.io
-
-remove_cor :
-	find ./ -type f -name "*.cor" -delete
 
 .PHONY: all clean fclean re libft corewar asm

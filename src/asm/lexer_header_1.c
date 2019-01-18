@@ -33,7 +33,7 @@ int		multiline_header_name(int fd, char **first_quot,
 	if (*last_quot - *first_quot > PROG_NAME_LENGTH)
 	{
 		ft_strdel(&name);
-		ft_exit_asm("Header name is to long.\n");
+		ft_exit_asm("Header name is to long.");
 	}
 	ft_strdel(&name);
 	return (1);
@@ -122,9 +122,9 @@ int		check_header(int fd)
 	comment = 0;
 	name = valid_header_name(fd);
 	if (name)
-		ft_exit_asm("Header name is invalid.\n");
+		ft_exit_asm("Header name is invalid.");
 	comment = valid_header_comment(fd);
 	if (comment)
-		ft_exit_asm("Header comment is invalid.\n");
+		ft_exit_asm("Header comment is invalid.");
 	return (name + comment);
 }

@@ -11,21 +11,23 @@
 #                                                        /                   #
 # ************************************************************************** #
 
-ASM		=	../../decompiler
+DEC		=	../../decompiler
 
-ASM_SRC_DIR =	./
+DEC_SRC_DIR =	./
 
-ASM_OBJ_DIR =	../../dec_obj/
+DEC_OBJ_DIR =	../../dec_obj/
 
-ASM_CFILES =	analyze_octet.c	fileout_cor.c	main.c		\
+DEC_CFILES =	analyze_octet.c	fileout_cor.c	main.c		\
 				op.c			other.c			secure_h.c	\
 				write_decompiler.c
 
-ASM_SOURCES =	$(addprefix $(ASM_SRC_DIR), $(ASM_CFILES))
+DEC_SOURCES =	$(addprefix $(DEC_SRC_DIR), $(DEC_CFILES))
 
-ASM_OFILES =	$(ASM_CFILES:.c=.o)
+DEC_OFILES =	$(DEC_CFILES:.c=.o)
 
-ASM_OBJECTS =	$(addprefix $(ASM_OBJ_DIR), $(ASM_OFILES))
+DEC_OBJECTS =	$(addprefix $(DEC_OBJ_DIR), $(DEC_OFILES))
+
+INC_DEC = $(INC_DIR)decompiler.h $(INC_DIR)op.h
 
 FLAGS =		-Wall -Wextra -Werror
 
@@ -33,31 +35,31 @@ INC_DIR =	../../inc/
 
 LIBFT = ../../lib/libft/libft.a
 
-all : $(ASM_OBJ_DIR) $(ASM)
+all : $(DEC_OBJ_DIR) $(DEC)
 
-$(ASM) : $(ASM_OBJECTS) $(LIBFT)
-	gcc $(FLAGS) $(ASM_OBJECTS) -L ../../lib/libft/ -lft -o $(ASM)
+$(DEC) : $(DEC_OBJECTS) $(LIBFT)
+	gcc $(FLAGS) $(DEC_OBJECTS) -L ../../lib/libft/ -lft -o $(DEC)
 
-$(ASM_OBJ_DIR)%.o : $(ASM_SRC_DIR)%.c
+$(DEC_OBJ_DIR)%.o : $(DEC_SRC_DIR)%.c $(INC_DEC)
 	gcc $(FLAGS) -c $< -o $@ -I $(INC_DIR) -I ../../lib/libft/inc/
 
-$(ASM_OBJ_DIR) :
-	@mkdir -p $(ASM_OBJ_DIR)
+$(DEC_OBJ_DIR) :
+	@mkdir -p $(DEC_OBJ_DIR)
 
 clean : obj
-	@rm -rf $(ASM_OBJ_DIR)
+	@rm -rf $(DEC_OBJ_DIR)
 
 fclean : obj
-	@rm -f $(ASM)
-	@rm -rf $(ASM_OBJ_DIR)
+	@rm -f $(DEC)
+	@rm -rf $(DEC_OBJ_DIR)
 
 re :
-	@rm -f $(ASM)
-	@rm -rf $(ASM_OBJ_DIR)
+	@rm -f $(DEC)
+	@rm -rf $(DEC_OBJ_DIR)
 	@make
 
 debug :
-	gcc -ggdb $(ASM_SOURCES) ../../lib/libft/libft.a -I ../../lib/libft/inc -I $(INC_DIR) -o asm_debug
+	gcc -ggdb $(DEC_SOURCES) ../../lib/libft/libft.a -I ../../lib/libft/inc -I $(INC_DIR) -o asm_debug
 	lldb ./asm_debug ../../test.s
 
 .PHONY: all clean fclean re obj
